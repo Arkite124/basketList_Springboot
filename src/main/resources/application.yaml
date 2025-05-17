@@ -1,0 +1,10 @@
+spring:
+ application:
+  name: basketlist_springboot
+ profiles:
+  include: dev_db
+mybatis:
+ mapper-locations:
+  classpath:Mapper/*.xml
+ type-aliases-package: com.example.basketlist_springboot.Dao
+
