@@ -17,3 +17,4 @@ newProjects를 체계적으로 구성하기 위한 재빌드업 및 재구성입
 커밋 내역 작성
 1. first Commit : MyBatisGenerator를 이용한 기초 Dto, Dao, Mapper를 기초 제작
 -상품 이미지는 구글/네이버 사진자료에서 가져온 것입니다. 
+2. 이상한 상용문자 : Springboot에서 이미지 파일 삭제 
