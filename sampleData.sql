@@ -26,12 +26,12 @@ INSERT INTO "product" ("product_category", "product_name", "product_img_url", "p
 ('fresh', '브로콜리', 'image/fresh/broccoli.jpg', '항산화 브로콜리!', 1700, 2, 0),
 
 -- InstantFood
-('instantfood', '삼각김밥 참치마요', 'image/instantfood/tunamayo.jpg', '맛있는 참치마요!', 1200, 2, 50),
-('instantfood', '컵라면 신라면', 'image/instantfood/shinramen.jpg', '국민 컵라면 신라면.', 1300, 1, 80),
-('instantfood', '햇반', 'image/instantfood/hetban.jpg', '전자레인지 2분 밥!', 1100, 3, 60),
-('instantfood', '즉석카레', 'image/instantfood/curry.jpg', '3분 카레입니다.', 2000, 4, 35),
-('instantfood', '오뚜기 미역국', 'image/instantfood/miyeok.jpg', '간편한 미역국', 2100, 5, 10),
-('instantfood', '짜파게티 컵', 'image/instantfood/jjapaghetti.jpg', '진한 맛의 짜파게티', 1400, 1, 5),
+('instantFood', '삼각김밥 참치마요', 'image/instantFood/tunamayo.jpg', '맛있는 참치마요!', 1200, 2, 50),
+('instantFood', '컵라면 신라면', 'image/instantFood/shinramen.jpg', '국민 컵라면 신라면.', 1300, 1, 80),
+('instantFood', '햇반', 'image/instantFood/hetban.jpg', '전자레인지 2분 밥!', 1100, 3, 60),
+('instantFood', '즉석카레', 'image/instantFood/curry.jpg', '3분 카레입니다.', 2000, 4, 35),
+('instantFood', '오뚜기 미역국', 'image/instantFood/miyeok.jpg', '간편한 미역국', 2100, 5, 10),
+('instantFood', '짜파게티 컵', 'image/instantFood/jjapaghetti.jpg', '진한 맛의 짜파게티', 1400, 1, 5),
 
 -- Snacks
 ('snacks', '허니버터칩', 'image/snacks/honeychip.jpg', '단짠 허니버터칩.', 2000, 2, 25),
@@ -39,12 +39,12 @@ INSERT INTO "product" ("product_category", "product_name", "product_img_url", "p
 ('snacks', '포카칩 오리지널', 'image/snacks/pocachip.jpg', '바삭한 감자칩!', 1900, 3, 15),
 ('snacks', '빼빼로', 'image/snacks/pepero.jpg', '달콤한 초코스틱.', 1200, 5, 18),
 ('snacks', '새우깡', 'image/snacks/shrimp.jpg', '국민 과자 새우깡!', 1000, 1, 22),
-('snacks', '초코파이', 'image/snacks/choco.jpg', '정 겨운 초코파이.', 1600, 2, 7),
+('snacks', '초코파이', 'image/snacks/choco.jpg', '정 겨운 초코파이.', 1600, 7, 8),
 
 -- Frozen
-('frozen', '냉동만두', 'image/frozen/dumpling.jpg', '전자렌지 OK!', 3500, 3, 13),
+('frozen', '냉동만두', 'image/frozen/dumpling.jpg', '전자렌지 OK!', 3500, 7, 13),
 ('frozen', '냉동피자', 'image/frozen/pizza.jpg', '치즈가 가득!', 5000, 2, 6),
-('frozen', '닭가슴살 볼', 'image/frozen/chickenball.jpg', '헬스용 식단.', 3200, 5, 14),
+('frozen', '닭가슴살 볼', 'image/frozen/chickenball.jpg', '헬스용 식단.', 3200, 6, 100),
 ('frozen', '냉동볶음밥', 'image/frozen/friedrice.jpg', '간편한 한끼!', 2700, 4, 21),
 ('frozen', '냉동감자튀김', 'image/frozen/fries.jpg', '바삭한 감자', 2500, 1, 30),
-('frozen', '냉동핫도그', 'image/frozen/hotdog.jpg', '치즈핫도그!', 3000, 3, 9);
+('frozen', '냉동핫도그', 'image/frozen/hotdog.jpg', '치즈핫도그!', 3000, 7, 9);
