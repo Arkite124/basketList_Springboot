@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basketlist_springboot.Mapper.ProductMapper">
+  <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.Product">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_category" jdbcType="VARCHAR" property="productCategory" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_img_url" jdbcType="VARCHAR" property="productImgUrl" />
+    <result column="product_description" jdbcType="VARCHAR" property="productDescription" />
+    <result column="product_user_no" jdbcType="INTEGER" property="productUserNo" />
+    <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+    <result column="product_quantity" jdbcType="INTEGER" property="productQuantity"/>
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterType="INTEGER" resultMap="BaseResultMap">
+    select 
+    *
+    from "product"
+    where "product_id" = #{productId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="INTEGER">
+    delete from "product"
+    where "product_id" = #{productId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="product_id" keyProperty="productId" parameterType="com.example.basketlist_springboot.Dto.Product" useGeneratedKeys="true">
+    insert into "product" ("product_category", "product_name", "product_img_url",
+      "product_description", "product_user_no","product_price","product_quantity")
+    values (#{productCategory,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productImgUrl,jdbcType=VARCHAR},
+      #{productDescription,jdbcType=VARCHAR}, #{productUserNo,jdbcType=INTEGER},#{productPrice,jdbcType=INTEGER},
+            #{productQuantity,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.basketlist_springboot.Dto.Product">
+    update product
+    <set>
+      <if test="productCategory != null">
+        product_category = #{productCategory,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="productImgUrl != null">
+        product_img_url = #{productImgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productDescription != null">
+        product_description = #{productDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="productUserNo != null">
+        product_user_no = #{productUserNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.basketlist_springboot.Dto.Product">
+    update "product"
+    set "product_category" = #{productCategory,jdbcType=VARCHAR},
+      "product_name" = #{productName,jdbcType=VARCHAR},
+      "product_img_url" = #{productImgUrl,jdbcType=VARCHAR},
+      "product_description" = #{productDescription,jdbcType=VARCHAR},
+      "product_user_no" = #{productUserNo,jdbcType=INTEGER}
+    where "product_id" = #{productId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -13,14 +13,15 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class cartItemList implements Serializable {
-    private BigDecimal cartItemId;
+    private Integer cartItemId;
 
-    private BigDecimal productNo;
+    private Integer productNo;
 
-    private BigDecimal listUserNo;
+    private Integer listUserNo;
 
-    private BigDecimal quantity;
+    private Integer quantity;
 
     private Date addedAt;
 

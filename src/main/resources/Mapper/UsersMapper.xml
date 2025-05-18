@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.basketlist_springboot.Dao.UsersDao">
+<mapper namespace="com.example.basketlist_springboot.Mapper.UsersMapper">
   <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.Users">
-    <id column="user_id" jdbcType="DECIMAL" property="userId" />
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
+    <resultMap id="userWithDetailsResultMap" type="com.example.basketlist_springboot.Dto.Users">
+      <id column="user_id" jdbcType="INTEGER" property="userId" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
+      <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+      <result column="role" jdbcType="VARCHAR" property="role" />
+      <association property="userDetails" javaType="com.example.basketlist_springboot.Dto.UserDetails">
+        <id column="detail_user_no" jdbcType="INTEGER" property="detailUserNo"/>
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="privacy_agreements" jdbcType="INTEGER" property="privacyAgreements" />
+        <result column="marketing_agreements" jdbcType="INTEGER" property="marketingAgreements" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="birth_date" jdbcType="TIMESTAMP" property="birthDate" />
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+      </association>
+    </resultMap>
   <select id="selectByUserId" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
     select 
     *
@@ -53,7 +70,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.basketlist_springboot.Dto.Users">
+  <update id="updateByIdSelective" parameterType="com.example.basketlist_springboot.Dto.Users">
     update users
     <set>
       <if test="userName != null">
@@ -71,11 +88,16 @@
     </set>
     where user_id = #{userId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.basketlist_springboot.Dto.Users">
+  <update id="updateById" parameterType="com.example.basketlist_springboot.Dto.Users">
     update "users"
     set "user_name" = #{userName,jdbcType=VARCHAR},
       "profile_img_url" = #{profileImgUrl,jdbcType=VARCHAR},
       "user_nickname" = #{userNickname,jdbcType=VARCHAR}
-    where "user_id" = #{userId,jdbcType=DECIMAL}
+    where "user_id" = #{userId,jdbcType=INTEGER}
   </update>
+  <select id="selectUserAndUserDetailByUserId"
+          parameterType="com.example.basketlist_springboot.Dto.Users"
+  resultMap="userWithDetailsResultMap">
+   select u.*,uD.* from "users" u left join ADMINBASKET."userDetails" uD on u."user_id" = uD."detail_user_no" where u."user_id"=#{userId,jdbcType=INTEGER}
+  </select>
 </mapper>

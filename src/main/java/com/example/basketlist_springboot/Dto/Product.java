@@ -9,13 +9,14 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product implements Serializable {
-    private BigDecimal productId;
+    private Integer productId;
     private String productCategory;
     private String productName;
     private String productImgUrl;
     private String productDescription;
-    private BigDecimal productUserNo;
+    private Integer productUserNo;
     private Integer productPrice;
     private Integer productQuantity;
 

@@ -12,8 +12,9 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class Users implements Serializable {
-    private BigDecimal userId;
+    private Integer userId;
 
     private String userName;
 
@@ -22,6 +23,8 @@ public class Users implements Serializable {
     private String userNickname;
 
     private String role;
+
+    private UserDetails userDetails;
 
     private static final long serialVersionUID = 1L;
 }
