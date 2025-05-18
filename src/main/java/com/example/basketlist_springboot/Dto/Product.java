@@ -5,9 +5,6 @@ import java.math.BigDecimal;
 
 import lombok.*;
 
-/**
- * product
- */
 @Getter
 @Setter
 @ToString

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.basketlist_springboot.Dao.UserdetailsDao">
-  <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.Userdetails">
+<mapper namespace="com.example.basketlist_springboot.Dao.UserDetailsDao">
+  <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.UserDetails">
     <result column="detail_user_no" jdbcType="DECIMAL" property="detailUserNo" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
@@ -11,7 +11,7 @@
     <result column="birth_date" jdbcType="TIMESTAMP" property="birthDate" />
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
-  <insert id="insert" parameterType="com.example.basketlist_springboot.Dto.Userdetails">
+  <insert id="insert" parameterType="com.example.basketlist_springboot.Dto.UserDetails">
     insert into "userDetails" ("detail_user_no", "email", "phone",
       "privacy_agreements", "marketing_agreements",
       "created_at", "birth_date", "name"
@@ -21,7 +21,7 @@
       #{createdAt,jdbcType=TIMESTAMP}, #{birthDate,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.basketlist_springboot.Dto.Userdetails">
+  <insert id="insertSelective" parameterType="com.example.basketlist_springboot.Dto.UserDetails">
     insert into userDetails
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="detailUserNo != null">

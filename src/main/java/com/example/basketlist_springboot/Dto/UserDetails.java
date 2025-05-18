@@ -13,7 +13,7 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
-public class Userdetails implements Serializable {
+public class UserDetails implements Serializable {
     private BigDecimal detailUserNo;
 
     private String email;

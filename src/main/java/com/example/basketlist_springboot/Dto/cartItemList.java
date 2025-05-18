@@ -13,7 +13,7 @@ import lombok.*;
 @Setter
 @ToString
 @AllArgsConstructor
-public class Productlist implements Serializable {
+public class cartItemList implements Serializable {
     private BigDecimal cartItemId;
 
     private BigDecimal productNo;

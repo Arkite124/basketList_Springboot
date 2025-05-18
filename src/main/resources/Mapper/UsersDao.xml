@@ -8,13 +8,13 @@
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
-  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
     select 
     *
     from "users"
     where "user_id" = #{userId,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+  <delete id="deleteByUserId" parameterType="java.math.BigDecimal">
     delete from "users"
     where "user_id" = #{userId,jdbcType=DECIMAL}
   </delete>
