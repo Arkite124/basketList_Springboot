@@ -23,3 +23,4 @@ newProjects를 체계적으로 구성하기 위한 재빌드업 및 재구성입
 4. Readme : Readme에 메일주소 추가
 5. Test : leftjoin 을 쓰는 쿼리를 추가하고 테스트 환경, Gradle 무한동의 오류 잡는다고 늦어짐
 6. Gradle : 쿼리구현 & 작동을 끝마친 상태에서 gradle 때문에 test 수신자체가 안됨
+7. UserDto : UserDto(user+userDetails) 유저 내역 조회 구현 및 간단 테스트

@@ -63,12 +63,12 @@
         added_at = #{addedAt, jdbcType=TIMESTAMP}
     WHERE cart_item_id = #{cartItemId, jdbcType=INTEGER}
   </update>
-  <select id="selectedPrice" parameterType="map" resultMap="selectedPrice">
+  <select id="selectedPrice" parameterType="map" resultType="java.lang.Integer">
     select (c.QUANTITY*p.PRODUCT_PRICE) from CARTITEMLIST c
-       left join ADMINBASKET.PRODUCT p on p.PRODUCT_ID = c.PRODUCT_NO where c.PRODUCT_NO=p.PRODUCT_ID
-         AND c.LIST_USER_NO=#{listUserNo} AND CART_ITEM_ID=#{cartItemId} group by c.QUANTITY, p.PRODUCT_PRICE,c.LIST_USER_NO;
+       left join PRODUCT p on p.PRODUCT_ID = c.PRODUCT_NO where c.PRODUCT_NO=p.PRODUCT_ID
+         AND c.LIST_USER_NO=#{listUserNo,jdbcType=INTEGER} AND c.CART_ITEM_ID=#{cartItemId,jdbcType=INTEGER}
   </select>
-  <select id="totalPrice" parameterType="INTEGER" resultMap="totalPrice">
+  <select id="totalPrice" parameterType="INTEGER" resultType="INTEGER">
     select (c.QUANTITY*p.PRODUCT_PRICE) from CARTITEMLIST c left join ADMINBASKET.PRODUCT
         p on c.PRODUCT_NO=#{productNo}=p.PRODUCT_ID where c.CART_ITEM_ID=#{cartItemId}
   </select>

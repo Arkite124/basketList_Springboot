@@ -41,8 +41,8 @@ class CartItemListMapperTest {
     @Transactional
     void selectedPrice() {
         Map<String,Integer> map = new HashMap<>();
-        map.put("cartItemId",20);
         map.put("listUserNo",9);
+        map.put("cartItemId",20);
         Integer UserSelectedPrice=cartItemListMapper.selectedPrice(map);
         System.out.println(UserSelectedPrice);
     }

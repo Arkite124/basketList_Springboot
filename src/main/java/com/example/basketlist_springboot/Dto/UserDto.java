@@ -1,21 +1,19 @@
 package com.example.basketlist_springboot.Dto;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
-
 import lombok.*;
 
-/**
- * userDetails
- */
+import java.util.Date;
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDetails implements Serializable {
-    private Integer detailUserNo;
+public class UserDto {
+    private Integer userId;
+    private String userName;
+    private String profileImgUrl;
+    private String userNickname;
+    private String role;
     private String email;
     private String phone;
     private Short privacyAgreements;
@@ -23,6 +21,5 @@ public class UserDetails implements Serializable {
     private Date createdAt;
     private Date birthDate;
     private String name;
-
-    private static final long serialVersionUID = 1L;
+//종합 정보 입력 및 조회
 }
