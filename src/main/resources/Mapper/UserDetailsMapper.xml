@@ -12,10 +12,8 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
   <insert id="insert" parameterType="com.example.basketlist_springboot.Dto.UserDetails">
-    insert into "userDetails" ("detail_user_no", "email", "phone",
-      "privacy_agreements", "marketing_agreements",
-      "created_at", "birth_date", "name"
-      )
+    insert into userDetails (DETAIL_USER_NO,EMAIL,PHONE,PRIVACY_AGREEMENTS,MARKETING_AGREEMENTS,
+        CREATED_AT,BIRTH_DATE,NAME)
     values (#{detailUserNo,jdbcType=DECIMAL}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{privacyAgreements,jdbcType=DECIMAL}, #{marketingAgreements,jdbcType=DECIMAL}, 
       #{createdAt,jdbcType=TIMESTAMP}, #{birthDate,jdbcType=TIMESTAMP}, #{name,jdbcType=VARCHAR}
@@ -23,6 +21,6 @@
   </insert>
   <select id="selectUserDetailsByDetailUserId" parameterType="com.example.basketlist_springboot.Dto.UserDetails"
           resultType="com.example.basketlist_springboot.Dto.UserDetails" resultMap="BaseResultMap">
-    select * from "userDetails" where "detail_user_no"=#{detailUserNo,jdbcType=INTEGER}
+    select * from userDetails where detail_user_no=#{detailUserNo,jdbcType=INTEGER}
   </select>
 </mapper>

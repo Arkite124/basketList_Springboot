@@ -25,50 +25,19 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
       </association>
     </resultMap>
-  <select id="selectByUserId" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     *
-    from "users"
-    where "user_id" = #{userId,jdbcType=DECIMAL}
+    from users
+    where user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByUserId" parameterType="java.math.BigDecimal">
-    delete from "users"
-    where "user_id" = #{userId,jdbcType=DECIMAL}
+  <delete id="deleteByUserId" parameterType="java.lang.Integer">
+    delete from users
+    where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.example.basketlist_springboot.Dto.Users" useGeneratedKeys="true">
-    insert into "users" ("user_name", "profile_img_url", "user_nickname")
+    insert into users (user_name, profile_img_url, user_nickname)
     values (#{userName,jdbcType=VARCHAR}, #{profileImgUrl,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="com.example.basketlist_springboot.Dto.Users" useGeneratedKeys="true">
-    insert into users
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userName != null">
-        user_name,
-      </if>
-      <if test="profileImgUrl != null">
-        profile_img_url,
-      </if>
-      <if test="userNickname != null">
-        user_nickname,
-      </if>
-      <if test="role != null">
-        "role",
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userName != null">
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="profileImgUrl != null">
-        #{profileImgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="userNickname != null">
-        #{userNickname,jdbcType=VARCHAR},
-      </if>
-      <if test="role != null">
-        #{role,jdbcType=VARCHAR},
-      </if>
-    </trim>
   </insert>
   <update id="updateByIdSelective" parameterType="com.example.basketlist_springboot.Dto.Users">
     update users
@@ -89,15 +58,15 @@
     where user_id = #{userId,jdbcType=DECIMAL}
   </update>
   <update id="updateById" parameterType="com.example.basketlist_springboot.Dto.Users">
-    update "users"
-    set "user_name" = #{userName,jdbcType=VARCHAR},
-      "profile_img_url" = #{profileImgUrl,jdbcType=VARCHAR},
-      "user_nickname" = #{userNickname,jdbcType=VARCHAR}
-    where "user_id" = #{userId,jdbcType=INTEGER}
+    update users
+    set user_name = #{userName,jdbcType=VARCHAR},
+      profile_img_url = #{profileImgUrl,jdbcType=VARCHAR},
+      user_nickname = #{userNickname,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <select id="selectUserAndUserDetailByUserId"
           parameterType="com.example.basketlist_springboot.Dto.Users"
   resultMap="userWithDetailsResultMap">
-   select u.*,uD.* from "users" u left join ADMINBASKET."userDetails" uD on u."user_id" = uD."detail_user_no" where u."user_id"=#{userId,jdbcType=INTEGER}
+   select u.*,uD.* from users u left join ADMINBASKET.userDetails uD on u.user_id = uD.detail_user_no where u.user_id=#{userId,jdbcType=INTEGER}
   </select>
 </mapper>

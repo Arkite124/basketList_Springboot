@@ -2,7 +2,9 @@ package com.example.basketlist_springboot.Dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 @Getter
@@ -19,6 +21,7 @@ public class Product implements Serializable {
     private Integer productUserNo;
     private Integer productPrice;
     private Integer productQuantity;
+    private Timestamp productAddedAt;
 
     private static final long serialVersionUID = 1L;
 }

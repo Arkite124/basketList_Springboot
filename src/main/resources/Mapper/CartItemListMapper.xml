@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.basketlist_springboot.Mapper.CartItemListMapper">
+  <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.CartItemList">
+    <id column="cart_item_id" jdbcType="INTEGER" property="cartItemId" />
+    <result column="product_no" jdbcType="INTEGER" property="productNo" />
+    <result column="list_user_no" jdbcType="INTEGER" property="listUserNo" />
+    <result column="quantity" jdbcType="INTEGER" property="quantity" />
+    <result column="added_at" jdbcType="TIMESTAMP" property="addedAt" />
+  </resultMap>
+  <resultMap id="selectedPrice" type="com.example.basketlist_springboot.Dto.CartItemList">
+    <id column="cart_item_id" jdbcType="INTEGER" property="cartItemId" />
+    <result column="selectedPrice" jdbcType="INTEGER" property="selectedPrice"/>
+    <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+    <result column="list_user_no" jdbcType="INTEGER" property="listUserNo"/>
+    <result column="product_no" jdbcType="INTEGER" property="productNo"/>
+  </resultMap>
+  <resultMap id="totalPrice" type="com.example.basketlist_springboot.Dto.CartItemList">
+    <id column="cart_item_id" jdbcType="INTEGER" property="cartItemId" />
+    <result column="totalPrice" jdbcType="INTEGER" property="totalPrice"/>
+    <result column="list_user_no" jdbcType="INTEGER" property="listUserNo"/>
+    <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+    <result column="product_no" jdbcType="INTEGER" property="productNo"/>
+  </resultMap>
+
+  <select id="selectByCartItemId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM cartItemList
+    WHERE cart_item_id = #{cartItemId, jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByCartItemId" parameterType="java.lang.Integer">
+    DELETE FROM cartItemList
+    WHERE cart_item_id = #{cartItemId, jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.example.basketlist_springboot.Dto.CartItemList"
+          keyColumn="cart_item_id" keyProperty="cartItemId" useGeneratedKeys="true">
+    INSERT INTO cartItemList (product_no, list_user_no, quantity, added_at)
+    VALUES (#{productNo, jdbcType=INTEGER},
+            #{listUserNo, jdbcType=INTEGER},
+            #{quantity, jdbcType=INTEGER},
+            #{addedAt, jdbcType=TIMESTAMP})
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.basketlist_springboot.Dto.CartItemList">
+    UPDATE cartItemList
+    <set>
+      <if test="productNo != null">product_no = #{productNo, jdbcType=INTEGER},</if>
+      <if test="listUserNo != null">list_user_no = #{listUserNo, jdbcType=INTEGER},</if>
+      <if test="quantity != null">quantity = #{quantity, jdbcType=INTEGER},</if>
+      <if test="addedAt != null">added_at = #{addedAt, jdbcType=TIMESTAMP},</if>
+    </set>
+    WHERE cart_item_id = #{cartItemId, jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.example.basketlist_springboot.Dto.CartItemList">
+    UPDATE cartItemList
+    SET product_no = #{productNo, jdbcType=INTEGER},
+        list_user_no = #{listUserNo, jdbcType=INTEGER},
+        quantity = #{quantity, jdbcType=INTEGER},
+        added_at = #{addedAt, jdbcType=TIMESTAMP}
+    WHERE cart_item_id = #{cartItemId, jdbcType=INTEGER}
+  </update>
+  <select id="selectedPrice" parameterType="map" resultMap="selectedPrice">
+    select (c.QUANTITY*p.PRODUCT_PRICE) from CARTITEMLIST c
+       left join ADMINBASKET.PRODUCT p on p.PRODUCT_ID = c.PRODUCT_NO where c.PRODUCT_NO=p.PRODUCT_ID
+         AND c.LIST_USER_NO=#{listUserNo} AND CART_ITEM_ID=#{cartItemId} group by c.QUANTITY, p.PRODUCT_PRICE,c.LIST_USER_NO;
+  </select>
+  <select id="totalPrice" parameterType="INTEGER" resultMap="totalPrice">
+    select (c.QUANTITY*p.PRODUCT_PRICE) from CARTITEMLIST c left join ADMINBASKET.PRODUCT
+        p on c.PRODUCT_NO=#{productNo}=p.PRODUCT_ID where c.CART_ITEM_ID=#{cartItemId}
+  </select>
+</mapper>
