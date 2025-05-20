@@ -227,8 +227,8 @@ VALUES ('alcohols', '오크통 버번', 'image/alcohols/bourbon.jpg', '오크 �
 
 
 UPDATE product
-SET  product_added_at = CAST(SYSDATE - DBMS_RANDOM.VALUE(15, 180) AS TIMESTAMP)
-WHERE product_added_at IS NULL;
+SET  product_added_at = CAST(TO_CHAR(SYSDATE - (DBMS_RANDOM.VALUE(3600*24*15, 3600*24*30)/24/60/60) , 'YYYY-MM-DD HH24:MI:SS')as timestamp)
+WHERE product_added_at>SYSTIMESTAMP;
 COMMIT;
 
 /*위시리스트*/
@@ -246,9 +246,9 @@ VALUES (1, 48);
 
 INSERT INTO wishList (wish_user_no, wish_product_no)
 VALUES (2, 24);
-UPDATE cartItemList
-SET  added_at = CAST(SYSDATE - DBMS_RANDOM.VALUE(15, 180) AS TIMESTAMP)
-WHERE added_at IS NULL;
+UPDATE WISHLIST
+SET ADDED_AT = CAST(TO_CHAR(SYSDATE - (DBMS_RANDOM.VALUE(0, 3600*24*5)/24/60/60) , 'YYYY-MM-DD HH24:MI:SS')as timestamp)
+WHERE added_at>SYSTIMESTAMP;
 COMMIT;
 
 /*장바구니 목록*/
@@ -294,35 +294,38 @@ INSERT INTO cartItemList (product_no, list_user_no, quantity)
 VALUES (42, 9, 5);
 
 UPDATE cartItemList
-SET  added_at = CAST(SYSDATE - DBMS_RANDOM.VALUE(15, 180) AS TIMESTAMP)
-WHERE added_at IS NULL;
+SET  added_at = CAST(TO_CHAR(SYSDATE - (DBMS_RANDOM.VALUE(3600*24*6, 3600*24*14)/24/60/60) , 'YYYY-MM-DD HH24:MI:SS')as timestamp)
+WHERE added_at>SYSTIMESTAMP;
 commit;
 
 /*여기는 userDetails(잊어먹고 나중에 넣음)*/
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (1, 'admin1@example.com', '01011111111', 1, 0, SYSDATE, TO_DATE('1990-01-01', 'YYYY-MM-DD'), '김관리');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (1, 'admin1@example.com', '01011111111', 1, 0,  TO_TIMESTAMP('1990-01-01', 'YYYY-MM-DD'), '김관리');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES ( 2, 'goodseller1@example.com', '01022222222', 1, 1, SYSDATE, TO_DATE('1985-03-15', 'YYYY-MM-DD'), '박판매');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES ( 2, 'goodseller1@example.com', '01022222222', 1, 1,  TO_TIMESTAMP('1985-03-15', 'YYYY-MM-DD'), '박판매');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (3, 'goodseller2@example.com', '01033333333', 1, 1, SYSDATE, TO_DATE('1982-07-21', 'YYYY-MM-DD'), '이우수');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (3, 'goodseller2@example.com', '01033333333', 1, 1, TO_TIMESTAMP('1982-07-21', 'YYYY-MM-DD'), '이우수');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (4, 'customer1@example.com', '01044444444', 1, 0, SYSDATE, TO_DATE('1995-09-10', 'YYYY-MM-DD'), '최고객');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (4, 'customer1@example.com', '01044444444', 1, 0, TO_TIMESTAMP('1995-09-10', 'YYYY-MM-DD'), '최고객');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (5, 'multiUser1@example.com', '01055555555', 1, 1, SYSDATE, TO_DATE('1991-12-25', 'YYYY-MM-DD'), '정복합');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (5, 'multiUser1@example.com', '01055555555', 1, 1, TO_TIMESTAMP('1991-12-25', 'YYYY-MM-DD'), '정복합');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (6, 'sellerA@example.com', '01066666666', 1, 0, SYSDATE, TO_DATE('1988-06-01', 'YYYY-MM-DD'), '한판매');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (6, 'sellerA@example.com', '01066666666', 1, 0,  TO_TIMESTAMP('1988-06-01', 'YYYY-MM-DD'), '한판매');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (7, 'sellerB@example.com', '01077777777', 1, 1, SYSDATE, TO_DATE('1993-08-18', 'YYYY-MM-DD'), '양다양');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (7, 'sellerB@example.com', '01077777777', 1, 1,  TO_TIMESTAMP('1993-08-18', 'YYYY-MM-DD'), '양다양');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (8, 'buyer01@example.com', '01088888888', 1, 1, SYSDATE, TO_DATE('1999-02-02', 'YYYY-MM-DD'), '구매왕');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (8, 'buyer01@example.com', '01088888888', 1, 1,  TO_TIMESTAMP('1999-02-02', 'YYYY-MM-DD'), '구매왕');
 
-INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements, created_at, birth_date, name)
-VALUES (9, 'multiUser2@example.com', '01099999999', 1, 0, SYSDATE, TO_DATE('1994-11-30', 'YYYY-MM-DD'), '홍사용');
+INSERT INTO userDetails (detail_user_no, email, phone, privacy_agreements,marketing_agreements,  birth_date, name)
+VALUES (9, 'multiUser2@example.com', '01099999999', 1, 0,  TO_TIMESTAMP('1994-11-30', 'YYYY-MM-DD'), '홍사용');
+UPDATE USERDETAILS
+SET  created_at = CAST(TO_CHAR(SYSDATE - (DBMS_RANDOM.VALUE(3600*24*31, 3600*24*40)/24/60/60) , 'YYYY-MM-DD HH24:MI:SS')as timestamp)
+WHERE created_at>SYSTIMESTAMP;
 COMMIT;

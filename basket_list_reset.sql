@@ -25,12 +25,12 @@ create table userDetails(
         foreign key (detail_user_no)
             references users(user_id)
                 on delete cascade,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) UNIQUE,
     phone VARCHAR(15) NOT NULL UNIQUE,
     privacy_agreements Number(1) DEFAULT '0' NOT NULL,
     marketing_agreements Number(1) DEFAULT '0' NOT NULL,
     created_at TIMESTAMP default SYSTIMESTAMP NOT NULL ,
-    birth_date DATE NOT NULL,
+    birth_date TIMESTAMP NOT NULL,
     name VARCHAR(30) NOT NULL
 );
 CREATE TABLE product (

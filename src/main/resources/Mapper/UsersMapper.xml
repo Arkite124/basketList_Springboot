@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.Users">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="role" jdbcType="VARCHAR" property="role" />
@@ -36,8 +37,9 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.example.basketlist_springboot.Dto.Users" useGeneratedKeys="true">
-    insert into users (user_name, profile_img_url, user_nickname)
-    values (#{userName,jdbcType=VARCHAR}, #{profileImgUrl,jdbcType=VARCHAR}, #{userNickname,jdbcType=VARCHAR})
+    insert into users (user_name ,PASSWORD, profile_img_url, user_nickname,ROLE)
+    values (#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, #{profileImgUrl,jdbcType=VARCHAR},
+            #{userNickname,jdbcType=VARCHAR},#{role,jdbcType=VARCHAR})
   </insert>
   <update id="updateByIdSelective" parameterType="com.example.basketlist_springboot.Dto.Users">
     update users
@@ -56,13 +58,6 @@
       </if>
     </set>
     where user_id = #{userId,jdbcType=DECIMAL}
-  </update>
-  <update id="updateById" parameterType="com.example.basketlist_springboot.Dto.Users">
-    update users
-    set user_name = #{userName,jdbcType=VARCHAR},
-      profile_img_url = #{profileImgUrl,jdbcType=VARCHAR},
-      user_nickname = #{userNickname,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
   </update>
   <select id="selectUserAndUserDetailByUserId"
           parameterType="com.example.basketlist_springboot.Dto.Users"

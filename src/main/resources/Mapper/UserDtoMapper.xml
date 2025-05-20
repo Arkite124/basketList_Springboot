@@ -16,6 +16,6 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
 </resultMap>
     <select id="getUserDtoByUserId" resultMap="BaseResultMap" parameterType="integer">
-        select u.*,uD.* from users u,userDetails uD where user_id=#{userId} AND detail_user_no=#{userId}
+        select u.USER_NAME,u.PROFILE_IMG_URL,u.USER_NICKNAME,u.ROLE,uD.* from users u,userDetails uD where user_id=#{userId} AND detail_user_no=#{userId}
     </select>
 </mapper>

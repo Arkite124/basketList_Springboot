@@ -1,6 +1,7 @@
 package com.example.basketlist_springboot.Mapper;
 
 import com.example.basketlist_springboot.Dto.Product;
+import com.sun.jdi.CharType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -44,5 +45,18 @@ class ProductMapperTest {
     void selectAll() {
         List<Product> productList = productMapper.selectAll();
         System.out.print(productList);
+    }
+
+    @Test
+    @Transactional
+    void selectByCategory() {
+        List<Product> productList = productMapper.selectByCategory("Fresh");
+        System.out.println(productList);
+    }
+
+    @Test
+    void selectProductListLikeProductName() {
+        List<Product> productList = productMapper.selectProductListLikeProductName("한");
+        System.out.println(productList);
     }
 }

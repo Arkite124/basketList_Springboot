@@ -27,4 +27,20 @@ class UsersMapperTest {
         Users userInfo = usersMapper.selectUserAndUserDetailByUserId(userId);
         System.out.println(userInfo);
     }
+
+    @Test
+    void deleteByUserId() {
+    }
+
+    @Test
+    void insert() {
+    }
+
+    @Test
+    void selectByUserId() {
+    }
+
+    @Test
+    void updateByIdSelective() {
+    }
 }

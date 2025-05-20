@@ -1,6 +1,7 @@
 package com.example.basketlist_springboot.Dto;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import lombok.*;
@@ -22,7 +23,7 @@ public class CartItemList implements Serializable {
 
     private Integer quantity;
 
-    private Date addedAt;
+    private Timestamp addedAt;
 
     private Integer selectedPrice;
     private Integer totalPrice;

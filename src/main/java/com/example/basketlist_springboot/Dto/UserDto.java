@@ -2,15 +2,18 @@ package com.example.basketlist_springboot.Dto;
 
 import lombok.*;
 
+import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 @Getter
 @Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserDto implements Serializable {
     private Integer userId;
     private String userName;
+    private String password;
     private String profileImgUrl;
     private String userNickname;
     private String role;
@@ -18,8 +21,9 @@ public class UserDto {
     private String phone;
     private Short privacyAgreements;
     private Short marketingAgreements;
-    private Date createdAt;
-    private Date birthDate;
+    private Timestamp createdAt;
+    private Timestamp birthDate;
     private String name;
-//종합 정보 입력 및 조회
+//종합 정보 조회
+private static final long serialVersionUID = 1L;
 }

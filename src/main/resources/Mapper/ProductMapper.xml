@@ -13,19 +13,22 @@
     <result column="product_added_at" jdbcType="TIMESTAMP" property="productAddedAt"/>
   </resultMap>
   <select id="selectByProductId" parameterType="INTEGER" resultMap="BaseResultMap">
-    select 
+    select
     *
     from product
     where product_id = #{productId,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select * from product order by PRODUCT_ADDED_AT
+    select * from product order by PRODUCT_ADDED_AT DESC
+  </select>
+  <select id="selectByCategory" resultMap="BaseResultMap">
+    select * from product where PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC
   </select>
   <delete id="deleteById" parameterType="INTEGER">
     delete from product
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="product_id" keyProperty="productId" parameterType="com.example.basketlist_springboot.Dto.Product" useGeneratedKeys="true">
+  <insert id="insertProduct" keyColumn="product_id" keyProperty="productId" parameterType="com.example.basketlist_springboot.Dto.Product" useGeneratedKeys="true">
     insert into product (
       PRODUCT_CATEGORY,
 PRODUCT_NAME,
@@ -74,5 +77,8 @@ PRODUCT_ADDED_AT)
   </select>
   <select id="selectByProductIdAndProductCategory" parameterType="map" resultMap="BaseResultMap">
     select * from product where product_id=#{productId} AND product_category=#{productCategory}
+  </select>
+  <select id="selectProductListLikeProductName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from PRODUCT where PRODUCT_NAME like '%'||#{keyWord}||'%'
   </select>
 </mapper>

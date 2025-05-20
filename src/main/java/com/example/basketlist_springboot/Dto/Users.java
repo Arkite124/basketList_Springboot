@@ -16,6 +16,7 @@ import lombok.*;
 public class Users implements Serializable {
     private Integer userId;
     private String userName;
+    private String password;
     private String profileImgUrl;
     private String userNickname;
     private String role;
