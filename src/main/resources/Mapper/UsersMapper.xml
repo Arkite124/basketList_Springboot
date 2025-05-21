@@ -10,13 +10,11 @@
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
     <resultMap id="userWithDetailsResultMap" type="com.example.basketlist_springboot.Dto.Users">
-      <id column="user_id" jdbcType="INTEGER" property="userId" />
       <result column="user_name" jdbcType="VARCHAR" property="userName" />
       <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
       <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
       <result column="role" jdbcType="VARCHAR" property="role" />
       <association property="userDetails" javaType="com.example.basketlist_springboot.Dto.UserDetails">
-        <id column="detail_user_no" jdbcType="INTEGER" property="detailUserNo"/>
         <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="phone" jdbcType="VARCHAR" property="phone" />
         <result column="privacy_agreements" jdbcType="INTEGER" property="privacyAgreements" />

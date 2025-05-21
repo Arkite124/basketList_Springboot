@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.basketlist_springboot.Mapper.WishListMapper">
+  <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.WishList">
+    <id column="WISH_USER_NO" jdbcType="INTEGER" property="wishUserNo" />
+    <id column="WISH_PRODUCT_NO" jdbcType="INTEGER" property="wishProductNo" />
+    <result column="ADDED_AT" jdbcType="TIMESTAMP" property="addedAt" />
+  </resultMap>
+  <resultMap id="BaseAndProductResultMap" type="com.example.basketlist_springboot.Dto.WishList">
+    <id column="WISH_USER_NO" jdbcType="INTEGER" property="wishUserNo" />
+    <id column="WISH_PRODUCT_NO" jdbcType="INTEGER" property="wishProductNo" />
+    <result column="ADDED_AT" jdbcType="TIMESTAMP" property="addedAt" />
+    <association property="product" javaType="com.example.basketlist_springboot.Dto.Product">
+      <id column="product_id" jdbcType="INTEGER" property="productId" />
+      <result column="product_category" jdbcType="VARCHAR" property="productCategory" />
+      <result column="product_name" jdbcType="VARCHAR" property="productName" />
+      <result column="product_img_url" jdbcType="VARCHAR" property="productImgUrl" />
+      <result column="product_description" jdbcType="VARCHAR" property="productDescription" />
+      <result column="product_user_no" jdbcType="INTEGER" property="productUserNo" />
+      <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+      <result column="product_quantity" jdbcType="INTEGER" property="productQuantity"/>
+      <result column="product_added_at" jdbcType="TIMESTAMP" property="productAddedAt"/>
+    </association>
+  </resultMap>
+  <select id="selectWishListByKey" parameterType="com.example.basketlist_springboot.Dto.WishListKey" resultMap="BaseResultMap">
+    select 
+    *
+    from WISHLIST
+    where WISH_USER_NO = #{wishUserNo,jdbcType=INTEGER}
+      and WISH_PRODUCT_NO = #{wishProductNo,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.example.basketlist_springboot.Dto.WishListKey">
+    delete from WISHLIST
+    where WISH_USER_NO = #{wishUserNo,jdbcType=INTEGER}
+      and WISH_PRODUCT_NO = #{wishProductNo,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="WISH_USER_NO" keyProperty="wishUserNo" parameterType="com.example.basketlist_springboot.Dto.WishList" useGeneratedKeys="true">
+    insert into WISHLIST (WISH_USER_NO,WISH_PRODUCT_NO, ADDED_AT)
+    values (#{wishUserNo,jdbcType=INTEGER},#{wishProductNo,jdbcType=INTEGER}, #{addedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <select id="selectAllByWishUserNo" parameterType="integer" resultMap="BaseAndProductResultMap">
+    select w.*,w.WISH_PRODUCT_NO,p.* from WISHLIST w left join ADMINBASKET.PRODUCT p on p.PRODUCT_ID=w.WISH_PRODUCT_NO where WISH_USER_NO=#{wishUserNo,jdbcType=INTEGER}
+  </select>
+</mapper>

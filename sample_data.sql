@@ -1,12 +1,12 @@
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'admin1', 'pass1234', NULL, '관리자', 'ADMIN');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'goodseller1', 'pass1234', NULL, '굿셀러', 'SELLER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'goodseller2', 'pass1234', NULL, '우수판매원', 'SELLER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ('customer1', 'pass1234', NULL, 'VIP고객', 'BUYER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'multiUser1', 'pass1234', NULL, '상품좋음', 'BOTH');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'admin1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '관리자', 'ADMIN');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'goodseller1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '굿셀러', 'SELLER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'goodseller2', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '우수판매원', 'SELLER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ('customer1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'VIP고객', 'BUYER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'multiUser1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '상품좋음', 'BOTH');
 INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'sellerA', 'pass1234', NULL, '한개만팜', 'SELLER');
 INSERT INTO users (user_name, password, profile_img_url, user_nickname, role)VALUES ( 'sellerB', 'pass1234', NULL, '판매다양', 'SELLER');
 INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'buyer01', 'pass1234', NULL, 'VVIP고객', 'BUYER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'multiUser2', 'pass1234', NULL, '평판좋음', 'BOTH');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'multiUser2', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '평판좋음', 'BOTH');
 /*사용자 9명 실질 판매자 5명*/
 COMMIT;
 /*샘플 상품 70개*/

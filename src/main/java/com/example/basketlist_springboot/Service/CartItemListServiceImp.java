@@ -1,7 +1,9 @@
 package com.example.basketlist_springboot.Service;
 
 import com.example.basketlist_springboot.Dto.CartItemList;
+import com.example.basketlist_springboot.Dto.Users;
 import com.example.basketlist_springboot.Mapper.CartItemListMapper;
+import com.example.basketlist_springboot.Mapper.UsersMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,14 @@ import java.util.Map;
 @AllArgsConstructor
 public class CartItemListServiceImp implements CartItemListService {
     private final CartItemListMapper cartItemListMapper;
+    private final UsersMapper usersMapper;
 
     @Override
     public CartItemList createCartItemList(int userId, int productNo, int quantity, Timestamp addedAt) {
+        Users user=usersMapper.selectByUserId(userId);
+        if(user.getRole().equals("seller")){
+            return null;
+        }
         CartItemList cartItemList = new CartItemList();
         cartItemList.setListUserNo(userId);
         cartItemList.setProductNo(productNo);

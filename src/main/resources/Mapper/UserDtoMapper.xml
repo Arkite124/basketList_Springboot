@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basketlist_springboot.Mapper.UserDtoMapper">
 <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.UserDto">
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <id column="user_id" jdbcType="INTEGER" property="userId"/>
     <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
     <result column="role" jdbcType="VARCHAR" property="role" />
@@ -16,6 +15,15 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
 </resultMap>
     <select id="getUserDtoByUserId" resultMap="BaseResultMap" parameterType="integer">
-        select u.USER_NAME,u.PROFILE_IMG_URL,u.USER_NICKNAME,u.ROLE,uD.* from users u,userDetails uD where user_id=#{userId} AND detail_user_no=#{userId}
+        select u.PROFILE_IMG_URL,u.USER_NICKNAME,u.ROLE,uD.* from users u,userDetails uD where user_id=#{userId} AND detail_user_no=#{userId}
+    </select>
+    <select id="getUserDtoByUserNameAndPassword" parameterType="map" resultMap="BaseResultMap">
+        select u.profile_img_url,u.user_nickname,u.role,uD.* from users u,userDetails uD where u.user_name=#{userName,jdbcType=VARCHAR}
+                    AND u.password=#{password,jdbcType=VARCHAR} AND u.USER_ID=uD.DETAIL_USER_NO
+    </select>
+    <select id="getUserDtoByUserName" parameterType="string" resultMap="BaseResultMap">
+        select user_name,password,user_nickname,user_id
+        from users
+        where user_name=#{userName,jdbcType=VARCHAR}
     </select>
 </mapper>

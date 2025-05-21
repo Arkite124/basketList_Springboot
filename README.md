@@ -31,3 +31,7 @@ newProjects를 체계적으로 구성하기 위한 재빌드업 및 재구성입
 추가로 SampleDB는 상품 추가,장바구니 넣은 날짜 랜덤화 까지 구현함
 한번에 push 하는 습관은 안좋지만 집중한다고 자꾸 잊어버림... 다음에는 위시리스트 확인 및 구현 예정
 다음에 로그인/로그아웃 기능을 구현 후에 마지막에 RestController로 RESTful API로 구성해보겠음
+9. login : login 구현 (logout은 자동으로 되거나 한줄코드 추가하면 될듯... session.invalidate 같은거...) 
+비밀번호 암호화, Controller 구조 기초, LoginDto는 작성했지만, 마지막에 jwt 추가하는 정점을 찍을때나 쓸듯
+wishListMapper만 추가, product Paging 하는 것에서 막힘(MyBatis는 기본적으로 Page를 지원하지 않음)
+로그인 구조는 React 에서는 좋지 않은 구조지만 임시로 session+cookie로 구현할 예정(jwt가 좋지만... 그건 나중에ㅠ)
