@@ -24,9 +24,12 @@
   <select id="selectByCategory" resultMap="BaseResultMap">
     select * from product where PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC
   </select>
-  <delete id="deleteById" parameterType="INTEGER">
+  <select id="selectProductListByProductUserNo" parameterType="integer" resultMap="BaseResultMap">
+    select * from PRODUCT where PRODUCT_USER_NO=#{productUserNo,jdbcType=INTEGER} order by PRODUCT_ADDED_AT DESC
+  </select>
+  <delete id="deleteByProductIdAndProductUserNo" parameterType="map">
     delete from product
-    where product_id = #{productId,jdbcType=INTEGER}
+    where product_id = #{productId,jdbcType=INTEGER} and product_user_no=#{productUserNo,jdbcType=INTEGER}
   </delete>
   <insert id="insertProduct" keyColumn="product_id" keyProperty="productId" parameterType="com.example.basketlist_springboot.Dto.Product" useGeneratedKeys="true">
     insert into product (
@@ -36,11 +39,10 @@ PRODUCT_IMG_URL,
 PRODUCT_DESCRIPTION,
 PRODUCT_PRICE,
 PRODUCT_USER_NO,
-PRODUCT_QUANTITY,
-PRODUCT_ADDED_AT)
+PRODUCT_QUANTITY)
     values (#{productCategory,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, #{productImgUrl,jdbcType=VARCHAR},
-      #{productDescription,jdbcType=VARCHAR}, #{productUserNo,jdbcType=INTEGER},#{productPrice,jdbcType=INTEGER},
-            #{productQuantity,jdbcType=INTEGER},#{product_added_at,jdbcType=TIMESTAMP})
+      #{productDescription,jdbcType=VARCHAR},#{productPrice,jdbcType=INTEGER}, #{productUserNo,jdbcType=INTEGER},
+            #{productQuantity,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.basketlist_springboot.Dto.Product">
     update product

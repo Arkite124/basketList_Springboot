@@ -24,16 +24,20 @@ repositories {
 }
 
 dependencies {
+    implementation group: 'org.springframework.data', name: 'spring-data-commons', version: '3.4.5'
     implementation 'org.springframework.security:spring-security-core'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
     compileOnly 'org.projectlombok:lombok:1.18.38'
+    compileOnly 'org.springframework.data:spring-data-commons:3.4.5'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+    runtimeOnly group: 'org.springframework.data', name: 'spring-data-commons', version: '3.4.5'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.5'
+    implementation group: 'org.springframework.data', name: 'spring-data-commons', version: '3.4.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.5'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     testCompileOnly 'org.projectlombok:lombok:1.18.38'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.38'

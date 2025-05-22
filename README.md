@@ -35,3 +35,5 @@ newProjects를 체계적으로 구성하기 위한 재빌드업 및 재구성입
 비밀번호 암호화, Controller 구조 기초, LoginDto는 작성했지만, 마지막에 jwt 추가하는 정점을 찍을때나 쓸듯
 wishListMapper만 추가, product Paging 하는 것에서 막힘(MyBatis는 기본적으로 Page를 지원하지 않음)
 로그인 구조는 React 에서는 좋지 않은 구조지만 임시로 session+cookie로 구현할 예정(jwt가 좋지만... 그건 나중에ㅠ)
+10. Service : service 구조는 거의 완성 되감, Mapper 에서 테스트한걸 바탕으로 넣을 예정 완성후 
+Controller를 통해 하나하나씩 구현해나갈 예정, 부족하다고 생각되는건 Mapper 부터 보충해나갈 예정

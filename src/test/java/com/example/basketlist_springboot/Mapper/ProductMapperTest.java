@@ -5,8 +5,11 @@ import com.sun.jdi.CharType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,5 +61,33 @@ class ProductMapperTest {
     void selectProductListLikeProductName() {
         List<Product> productList = productMapper.selectProductListLikeProductName("한");
         System.out.println(productList);
+    }
+
+    @Test
+    void selectProductListByProductUserNo() {
+        List<Product> productList= productMapper.selectProductListByProductUserNo(1);
+        System.out.println(productList);
+    }
+
+    @Test
+    void deleteByProductIdAndProductUserNo() {
+        Map<String,Integer> selectedProductMap=new HashMap<>();
+        selectedProductMap.put("productId",86);
+        selectedProductMap.put("productUserNo",1);
+        assertEquals(1, productMapper.deleteByProductIdAndProductUserNo(selectedProductMap));
+    }
+
+    @Test
+    void insertProduct() {
+        Product product=new Product();
+        product.setProductCategory("Fresh");
+        product.setProductName("단감 1box");
+        product.setProductImgUrl(null);
+        product.setProductDescription("싱싱한 단감 입니다.");
+        product.setProductPrice(19000);
+        product.setProductUserNo(1);
+        product.setProductQuantity(100);
+        productMapper.insertProduct(product);
+        System.out.println(productMapper.selectByProductId(product.getProductId()));
     }
 }

@@ -74,4 +74,9 @@ public class UsersServiceImp implements UsersService {
         }
         else return null;
     }
+
+    @Override
+    public void deleteUser(Integer userId) {
+        usersMapper.deleteByUserId(userId);
+    }
 }

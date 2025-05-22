@@ -61,11 +61,10 @@
   </update>
   <insert id="insert" parameterType="com.example.basketlist_springboot.Dto.CartItemList"
           keyColumn="cart_item_id" keyProperty="cartItemId" useGeneratedKeys="true" >
-    INSERT INTO cartItemList (product_no, list_user_no, quantity, added_at)
+    INSERT INTO cartItemList (product_no, list_user_no, quantity)
     VALUES (#{productNo, jdbcType=INTEGER},
             #{listUserNo, jdbcType=INTEGER},
-            #{quantity, jdbcType=INTEGER},
-            #{addedAt, jdbcType=TIMESTAMP})
+            #{quantity, jdbcType=INTEGER})
   </insert>
   <select id="selectedPrice" parameterType="map" resultType="java.lang.Integer">
     select (c.QUANTITY*p.PRODUCT_PRICE) from CARTITEMLIST c
