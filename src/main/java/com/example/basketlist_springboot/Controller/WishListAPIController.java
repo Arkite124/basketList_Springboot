@@ -1,20 +1,13 @@
 package com.example.basketlist_springboot.Controller;
 
-import com.example.basketlist_springboot.Service.ProductService;
-import com.example.basketlist_springboot.Service.UsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/productList")
+@RequestMapping("/api/wishList")
 @AllArgsConstructor
 @CrossOrigin("http://localhost:3000")
-public class ProductListAPIController {
-    private final UsersService usersService;
-    private final ProductService productService;
-
-
-
+public class WishListAPIController {
 }

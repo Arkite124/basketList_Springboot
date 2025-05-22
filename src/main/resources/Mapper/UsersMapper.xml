@@ -62,4 +62,7 @@
   resultMap="userWithDetailsResultMap">
    select u.*,uD.* from users u left join ADMINBASKET.userDetails uD on u.user_id = uD.detail_user_no where u.user_id=#{userId,jdbcType=INTEGER}
   </select>
+  <select id="selectUserByUserNickName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select u.user_id,u.USER_NAME,u.PASSWORD,u.USER_NICKNAME from USERS u where u.USER_NICKNAME=#{userNickname,jdbcType=VARCHAR}
+  </select>
 </mapper>

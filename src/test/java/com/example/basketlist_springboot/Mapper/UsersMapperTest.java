@@ -23,7 +23,9 @@ class UsersMapperTest {
 
     @Test
     void selectUserAndUserDetailByUserId() {
-        Integer userId=1;
+        String nickName="굿셀러";
+        Users users=usersMapper.selectUserByUserNickName(nickName);
+        Integer userId=users.getUserId();
         Users userInfo = usersMapper.selectUserAndUserDetailByUserId(userId);
         System.out.println(userInfo);
     }
@@ -42,5 +44,11 @@ class UsersMapperTest {
 
     @Test
     void updateByIdSelective() {
+    }
+
+    @Test
+    void selectUserByUserNickName() {
+        String nickName="굿셀러";
+        System.out.println(usersMapper.selectUserByUserNickName(nickName));
     }
 }

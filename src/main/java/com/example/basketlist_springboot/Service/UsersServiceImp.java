@@ -76,6 +76,25 @@ public class UsersServiceImp implements UsersService {
     }
 
     @Override
+    public Integer UpdateUsers(Users users, Integer userId) {
+        Users selectedUser=usersMapper.selectByUserId(userId);
+        users.setUserName(selectedUser.getUserName());
+        users.setUserNickname(selectedUser.getUserNickname());
+        users.setProfileImgUrl(selectedUser.getProfileImgUrl());
+        users.setRole(selectedUser.getRole());
+        users.setPassword(selectedUser.getPassword());
+        return usersMapper.updateByIdSelective(users);
+    }
+
+    @Override
+    public Users InfoSelectedUser(String userNickname) {
+        Users users=usersMapper.selectUserByUserNickName(userNickname);
+        Integer userId=users.getUserId();
+        Users selectedUser=usersMapper.selectUserAndUserDetailByUserId(userId);
+        return selectedUser;
+    }
+
+    @Override
     public void deleteUser(Integer userId) {
         usersMapper.deleteByUserId(userId);
     }

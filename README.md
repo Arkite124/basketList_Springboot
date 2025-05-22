@@ -37,3 +37,6 @@ wishListMapper만 추가, product Paging 하는 것에서 막힘(MyBatis는 기�
 로그인 구조는 React 에서는 좋지 않은 구조지만 임시로 session+cookie로 구현할 예정(jwt가 좋지만... 그건 나중에ㅠ)
 10. Service : service 구조는 거의 완성 되감, Mapper 에서 테스트한걸 바탕으로 넣을 예정 완성후 
 Controller를 통해 하나하나씩 구현해나갈 예정, 부족하다고 생각되는건 Mapper 부터 보충해나갈 예정
+11. Update : 각 데이터베이스에 대한걸 Update(modify)하는 것중에 User,UserDetails를 합친 UserDto가 어려우서 거기서 고전중
+자야되니 임시 커밋, 애초에 Users,UserDetails를 분리해놓은 이유는 따로 조회하기 위함이었는데 힘들어지는거 같은 느낌...?
+User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면 나머지는 단독 업데이트라 업데이트 할만할듯 함
