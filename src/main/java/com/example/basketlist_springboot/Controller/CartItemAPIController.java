@@ -35,15 +35,7 @@ public class CartItemAPIController {
         List<CartItemList> ItemList=cartItemListService.getCartItemList(user.getUserId());
         return ResponseEntity.ok().body(ItemList);
     }
-    @GetMapping("/userList")
-    ResponseEntity<?> getUserList(@RequestParam String userNickname) {
-        Users user = usersService.InfoSelectedUser(userNickname);
-        if(user==null){
-            return ResponseEntity.badRequest().body("존재하지 않는 유저입니다.");
-        }
-        List<CartItemList> ItemList=cartItemListService.getCartItemList(user.getUserId());
-        return ResponseEntity.ok().body(ItemList);
-    }
+
     @PostMapping("/myList")
     ResponseEntity<?> addCartItem(@RequestBody CartItemList cartItemList, HttpServletRequest request) {
         HttpSession session = request.getSession(false);

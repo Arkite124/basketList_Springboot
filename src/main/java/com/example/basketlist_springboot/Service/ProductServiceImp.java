@@ -5,7 +5,6 @@ import com.example.basketlist_springboot.Dto.Users;
 import com.example.basketlist_springboot.Mapper.ProductMapper;
 import com.example.basketlist_springboot.Mapper.UsersMapper;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +23,11 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public Page<Product> getProductPage(int page, int size) {
-        List<Product> productList=productMapper.selectAll();
+        Map<String,Integer> map=new HashMap<>();
+        Integer offset=page*size;
+        map.put("offset",offset);
+        map.put("size",size);
+        List<Product> productList=productMapper.selectAll(map);
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage=new PageImpl<>(productList,pageable,productList.size());
         return productPage;
@@ -32,38 +35,47 @@ public class ProductServiceImp implements ProductService {
 
     @Override
     public Page<Product> getProductPageByCategory(String category, int page, int size) {
-        List<Product> productList=productMapper.selectByCategory(category);
+        Map<String,Object> map=new HashMap<>();
+        Integer offset=page*size;
+        map.put("category",category);
+        map.put("offset",offset);
+        map.put("size",size);
+        List<Product> productList=productMapper.selectByCategory(map);
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage=new PageImpl<>(productList,pageable,productList.size());
         return productPage;
     }
 
     @Override
-    public List<Product> getProductListByUserId(int userId) {
-        Users user=usersMapper.selectByUserId(userId);
+    public List<Product> getProductListByUserNickname(String userNickname) {
+        Users user=usersMapper.selectUserByUserNickName(userNickname);
         if(user.getRole().equals("BUYER")){
             return null;
         }
-        List<Product> productList=productMapper.selectProductListByProductUserNo(userId);
+        List<Product> productList=productMapper.selectProductListByProductUserNickname(userNickname);
         return productList;
     }
 
     @Override
-    public Product getProductByProductNo(int productNo) {
-        Product selectedProduct=productMapper.selectByProductId(productNo);
-        return selectedProduct;
+    public Product getProductByProductName(String productName) {
+        return productMapper.selectByProductName(productName);
     }
 
     @Override
     public Page<Product> searchProductsByKeyWord(String keyword, int page, int size) {
-        List<Product> productList=productMapper.selectProductListLikeProductName(keyword);
+        Map<String,Object> map=new HashMap<>();
+        Integer offset=page*size;
+        map.put("keyword",keyword);
+        map.put("offset",offset);
+        map.put("size",size);
+        List<Product> productList=productMapper.selectProductListLikeProductName(map);
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productPage=new PageImpl<>(productList,pageable,productList.size());
         return productPage;
     }
 
     @Override
-    public Product addProduct(Product product,Integer userId) {
+    public void addProduct(Product product, Integer userId) {
         Product newProduct=new Product();
         newProduct.setProductCategory(product.getProductCategory());
         newProduct.setProductName(product.getProductName());
@@ -73,7 +85,6 @@ public class ProductServiceImp implements ProductService {
         newProduct.setProductQuantity(product.getProductQuantity());
         newProduct.setProductImgUrl(product.getProductImgUrl());
         productMapper.insertProduct(product);
-        return newProduct;
     }
 
     @Override
@@ -82,5 +93,19 @@ public class ProductServiceImp implements ProductService {
         map.put("productId",productNo);
         map.put("productUserNo",userId);
         productMapper.deleteByProductIdAndProductUserNo(map);
+    }
+
+    @Override
+    public void updateProduct(Product product, Integer userId) {
+        Product updateProduct=new Product();
+        updateProduct.setProductId(product.getProductId());
+        updateProduct.setProductCategory(product.getProductCategory());
+        updateProduct.setProductName(product.getProductName());
+        updateProduct.setProductPrice(product.getProductPrice());
+        updateProduct.setProductDescription(product.getProductDescription());
+        updateProduct.setProductUserNo(userId);
+        updateProduct.setProductQuantity(product.getProductQuantity());
+        updateProduct.setProductImgUrl(product.getProductImgUrl());
+        productMapper.updateByProductIdSelective(updateProduct);
     }
 }

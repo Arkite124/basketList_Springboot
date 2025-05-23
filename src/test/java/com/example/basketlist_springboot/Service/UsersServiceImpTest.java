@@ -7,6 +7,7 @@ import com.example.basketlist_springboot.Mapper.UsersMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
@@ -24,7 +25,9 @@ class UsersServiceImpTest {
     void registerUsers() {
         UserDto userDto = new UserDto();
         userDto.setUserName("goododo");
-        userDto.setPassword("pass1234");
+        String password = "pass1234";
+        String BcryptPw= BCrypt.hashpw(password, BCrypt.gensalt());
+        userDto.setPassword(BcryptPw);
         userDto.setProfileImgUrl(null);
         userDto.setUserNickname("좋아요");
         userDto.setRole("BOTH");//user
@@ -48,10 +51,5 @@ class UsersServiceImpTest {
     void loginUsers() {
         UserDto loginUser=usersService.LoginUsers("goodseller1","pass1234");
         System.out.println(loginUser);
-    }
-
-    @Test
-    void testRegisterUsers() {
-
     }
 }

@@ -42,6 +42,7 @@ public class UsersServiceImp implements UsersService {
         users.setUserNickname(userDto.getUserNickname());
         users.setProfileImgUrl(userDto.getProfileImgUrl());
         users.setRole(userDto.getRole());
+        users.setSelfIntroduction(userDto.getSelfIntroduction());
         usersMapper.insert(users);
         UserDetails userDetails = new UserDetails();
         userDetails.setDetailUserNo(users.getUserId());
@@ -59,11 +60,11 @@ public class UsersServiceImp implements UsersService {
         userDetails.setBirthDate(userDto.getBirthDate());
         userDetails.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
-        Integer checkAgreement=userDetailsMapper.checkPrivacyAgreement(userDetails.getPrivacyAgreements());
-        if(checkAgreement!=1){
+        short privacyAgreement= userDto.getPrivacyAgreements();
+        if(privacyAgreement!=1){
             return null;
         }
-        userDetails.setPrivacyAgreements(userDto.getPrivacyAgreements());
+        userDetails.setPrivacyAgreements(privacyAgreement);
         userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
         userDto.setUserId(users.getUserId());
         userDetailsMapper.insert(userDetails);
@@ -105,15 +106,13 @@ public class UsersServiceImp implements UsersService {
     }
 
     @Override
-    public Users InfoSelectedUser(String userNickname) {
-        Users users=usersMapper.selectUserByUserNickName(userNickname);
-        Integer userId=users.getUserId();
-        Users selectedUser=usersMapper.selectUserAndUserDetailByUserId(userId);
-        return selectedUser;
+    public void deleteUser(Integer userId) {
+        usersMapper.deleteByUserId(userId);
     }
 
     @Override
-    public void deleteUser(Integer userId) {
-        usersMapper.deleteByUserId(userId);
+    public Users getUserByUserNickname(String nickname) {
+        Users users=usersMapper.selectUserByUserNickName(nickname);
+        return users;
     }
 }

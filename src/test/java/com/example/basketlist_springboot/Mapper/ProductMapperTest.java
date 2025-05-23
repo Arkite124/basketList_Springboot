@@ -1,15 +1,12 @@
 package com.example.basketlist_springboot.Mapper;
 
 import com.example.basketlist_springboot.Dto.Product;
-import com.sun.jdi.CharType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.parameters.P;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +17,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductMapperTest {
     @Autowired
     ProductMapper productMapper;
-    @Test
-    @Transactional
-    void selectByProductCategory() {
-        List<Product> productList = productMapper.selectByProductCategory("alcohols");
-        System.out.println(productList);
-    }
 
     @Test
     @Transactional
@@ -39,40 +30,58 @@ class ProductMapperTest {
 
     @Test
     @Transactional
-    void selectByProductId() {
-        Product product=productMapper.selectByProductId(22);
+    void selectByProductName() {
+        Product product=productMapper.selectByProductName("신선한 당근");
         System.out.println(product);
     }
 
     @Test
+    @Transactional
     void selectAll() {
-        List<Product> productList = productMapper.selectAll();
+        Map<String,Integer> map=new HashMap<>();
+        int page=0;
+        int size=4;
+        Integer offset=page*size;
+        map.put("offset",offset);
+        map.put("size",size);
+        List<Product> productList=productMapper.selectAll(map);
         System.out.print(productList);
     }
 
     @Test
     @Transactional
     void selectByCategory() {
-        List<Product> productList = productMapper.selectByCategory("Fresh");
+        int page=0;
+        int size=4;
+        Map<String,Object> map=new HashMap<>();
+        String category="Fresh";
+        Integer offset=page*size;
+        map.put("category",category);
+        map.put("offset",offset);
+        map.put("size",size);
+        List<Product> productList = productMapper.selectByCategory(map);
         System.out.println(productList);
     }
 
     @Test
+    @Transactional
     void selectProductListLikeProductName() {
-        List<Product> productList = productMapper.selectProductListLikeProductName("한");
-        System.out.println(productList);
-    }
-
-    @Test
-    void selectProductListByProductUserNo() {
-        List<Product> productList= productMapper.selectProductListByProductUserNo(1);
+        int page=0;
+        int size=4;
+        String keyword="당근";
+        Map<String,Object> map=new HashMap<>();
+        Integer offset=page*size;
+        map.put("keyword",keyword);
+        map.put("offset",offset);
+        map.put("size",size);
+        List<Product> productList = productMapper.selectProductListLikeProductName(map);
         System.out.println(productList);
     }
 
     @Test
     void deleteByProductIdAndProductUserNo() {
         Map<String,Integer> selectedProductMap=new HashMap<>();
-        selectedProductMap.put("productId",86);
+        selectedProductMap.put("productId",70);
         selectedProductMap.put("productUserNo",1);
         assertEquals(1, productMapper.deleteByProductIdAndProductUserNo(selectedProductMap));
     }
@@ -88,6 +97,14 @@ class ProductMapperTest {
         product.setProductUserNo(1);
         product.setProductQuantity(100);
         productMapper.insertProduct(product);
-        System.out.println(productMapper.selectByProductId(product.getProductId()));
+        System.out.println(productMapper.selectByProductName(product.getProductName()));
+    }
+
+    @Test
+    @Transactional
+    void selectProductListByProductUserNickname() {
+        String productUserNickname="굿셀러";
+        List<Product> productList = productMapper.selectProductListByProductUserNickname(productUserNickname);
+        System.out.println(productList);
     }
 }

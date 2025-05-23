@@ -17,6 +17,7 @@ public class UserDto implements Serializable {
     private String profileImgUrl;
     private String userNickname;
     private String role;
+    private String selfIntroduction;
     private String email;
     private String phone;
     private Short privacyAgreements;

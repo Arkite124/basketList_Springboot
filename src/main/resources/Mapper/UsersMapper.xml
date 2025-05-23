@@ -7,13 +7,21 @@
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
     <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="self_introduction" jdbcType="VARCHAR" property="selfIntroduction"/>
     <result column="role" jdbcType="VARCHAR" property="role" />
   </resultMap>
+  <resultMap id="UserBaseMap" type="com.example.basketlist_springboot.Dto.Users">
+    <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="self_introduction" jdbcType="VARCHAR" property="selfIntroduction"/>
+  </resultMap>
     <resultMap id="userWithDetailsResultMap" type="com.example.basketlist_springboot.Dto.Users">
-      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <id column="user_id" jdbcType="INTEGER" property="userId" />
       <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
       <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
       <result column="role" jdbcType="VARCHAR" property="role" />
+      <result column="self_introduction" jdbcType="VARCHAR" property="selfIntroduction"/>
       <association property="userDetails" javaType="com.example.basketlist_springboot.Dto.UserDetails">
         <result column="email" jdbcType="VARCHAR" property="email" />
         <result column="phone" jdbcType="VARCHAR" property="phone" />
@@ -35,9 +43,9 @@
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="com.example.basketlist_springboot.Dto.Users" useGeneratedKeys="true">
-    insert into users (user_name ,PASSWORD, profile_img_url, user_nickname,ROLE)
+    insert into users (user_name ,PASSWORD, profile_img_url, user_nickname,ROLE,SELF_INTRODUCTION)
     values (#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, #{profileImgUrl,jdbcType=VARCHAR},
-            #{userNickname,jdbcType=VARCHAR},#{role,jdbcType=VARCHAR})
+            #{userNickname,jdbcType=VARCHAR},#{role,jdbcType=VARCHAR},#{selfIntroduction,jdbcType=VARCHAR})
   </insert>
   <update id="updateByIdSelective" parameterType="com.example.basketlist_springboot.Dto.Users">
     update users
@@ -54,6 +62,9 @@
       <if test="role != null">
         "role" = #{role,jdbcType=VARCHAR},
       </if>
+      <if test="selfIntroduction != null">
+        self_introduction = #{selfIntroduction,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=DECIMAL}
   </update>
@@ -63,7 +74,7 @@
    select u.*,uD.* from users u left join ADMINBASKET.userDetails uD on u.user_id = uD.detail_user_no where u.user_id=#{userId,jdbcType=INTEGER}
   </select>
   <select id="selectUserByUserNickName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select u.user_id,u.USER_NAME,u.PASSWORD,u.USER_NICKNAME from USERS u where u.USER_NICKNAME=#{userNickname,jdbcType=VARCHAR}
+    select u.PROFILE_IMG_URL,u.USER_NICKNAME,u.ROLE,u.SELF_INTRODUCTION from USERS u where u.USER_NICKNAME=#{userNickname,jdbcType=VARCHAR}
   </select>
   <select id="checkUserName" parameterType="java.lang.String" resultType="string">
     select user_name from users where user_name=#{userName,jdbcType=INTEGER}

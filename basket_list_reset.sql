@@ -17,6 +17,7 @@ create table users (
     password VARCHAR2(500) not null,
     profile_img_url VARCHAR(255),
     user_nickname VARCHAR(36) NOT NULL unique,
+    self_introduction VARCHAR(500),
     role varchar(10) default 'BUYER'
     );
 create table userDetails(

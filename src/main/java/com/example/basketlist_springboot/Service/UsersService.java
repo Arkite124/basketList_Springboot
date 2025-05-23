@@ -8,7 +8,7 @@ public interface UsersService {
     UserDto InfoUsers(Integer userId); //사용자조회
     UserDto LoginUsers(String userName, String password);
     void UpdateUsers(Users users, Integer userId);
-    Users InfoSelectedUser(String userNickname);
     void deleteUser(Integer userId);
+    Users getUserByUserNickname(String nickname);
 
 }

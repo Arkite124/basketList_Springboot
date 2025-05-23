@@ -2,30 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basketlist_springboot.Mapper.ProductMapper">
   <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.Product">
-    <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_category" jdbcType="VARCHAR" property="productCategory" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="product_img_url" jdbcType="VARCHAR" property="productImgUrl" />
     <result column="product_description" jdbcType="VARCHAR" property="productDescription" />
-    <result column="product_user_no" jdbcType="INTEGER" property="productUserNo" />
     <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
     <result column="product_quantity" jdbcType="INTEGER" property="productQuantity"/>
     <result column="product_added_at" jdbcType="TIMESTAMP" property="productAddedAt"/>
   </resultMap>
-  <select id="selectByProductId" parameterType="INTEGER" resultMap="BaseResultMap">
+  <resultMap id="ProductWithUserNicknameResultMap" type="com.example.basketlist_springboot.Dto.Product">
+    <result column="product_category" jdbcType="VARCHAR" property="productCategory" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="product_img_url" jdbcType="VARCHAR" property="productImgUrl" />
+    <result column="product_description" jdbcType="VARCHAR" property="productDescription" />
+    <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+    <result column="product_quantity" jdbcType="INTEGER" property="productQuantity"/>
+    <result column="product_added_at" jdbcType="TIMESTAMP" property="productAddedAt"/>
+    <association property="users" javaType="com.example.basketlist_springboot.Dto.Users">
+      <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    </association>
+  </resultMap>
+
+  <select id="selectByProductName" parameterType="string" resultMap="BaseResultMap">
     select
     *
     from product
-    where product_id = #{productId,jdbcType=INTEGER}
+    where PRODUCT_NAME=#{productName,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select * from product order by PRODUCT_ADDED_AT DESC
+  <select id="selectAll" resultMap="ProductWithUserNicknameResultMap" parameterType="map">
+    select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only
   </select>
-  <select id="selectByCategory" resultMap="BaseResultMap">
-    select * from product where PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC
+  <select id="selectByCategory" resultMap="ProductWithUserNicknameResultMap" parameterType="map">
+    select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID where PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only
   </select>
-  <select id="selectProductListByProductUserNo" parameterType="integer" resultMap="BaseResultMap">
-    select * from PRODUCT where PRODUCT_USER_NO=#{productUserNo,jdbcType=INTEGER} order by PRODUCT_ADDED_AT DESC
+  <select id="selectProductListByProductUserNickname" parameterType="string" resultMap="ProductWithUserNicknameResultMap">
+    select p.*,u.USER_NICKNAME from PRODUCT p left join Users u on u.USER_ID=p.PRODUCT_USER_NO where u.USER_NICKNAME=#{userNickname,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC
   </select>
   <delete id="deleteByProductIdAndProductUserNo" parameterType="map">
     delete from product
@@ -44,8 +55,8 @@ PRODUCT_QUANTITY)
       #{productDescription,jdbcType=VARCHAR},#{productPrice,jdbcType=INTEGER}, #{productUserNo,jdbcType=INTEGER},
             #{productQuantity,jdbcType=INTEGER})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.basketlist_springboot.Dto.Product">
-    update product
+  <update id="updateByProductIdSelective" parameterType="com.example.basketlist_springboot.Dto.Product">
+    update product p
     <set>
       <if test="productCategory != null">
         product_category = #{productCategory,jdbcType=VARCHAR},
@@ -62,25 +73,16 @@ PRODUCT_QUANTITY)
       <if test="productUserNo != null">
         product_user_no = #{productUserNo,jdbcType=INTEGER},
       </if>
+      <if test="productQuantity != null">
+        product_quantity = #{productQuantity,jdbcType=INTEGER},
+      </if>
     </set>
-    where product_id = #{productId,jdbcType=DECIMAL}
+    where product_id = #{productId,jdbcType=INTEGER} AND product_user_no=#{productUserNo,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.basketlist_springboot.Dto.Product">
-    update product
-    set product_category = #{productCategory,jdbcType=VARCHAR},
-      product_name = #{productName,jdbcType=VARCHAR},
-      product_img_url = #{productImgUrl,jdbcType=VARCHAR},
-      product_description = #{productDescription,jdbcType=VARCHAR},
-      product_user_no = #{productUserNo,jdbcType=INTEGER}
-    where product_id = #{productId,jdbcType=INTEGER}
-  </update>
-  <select id="selectByProductCategory" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from product where product_category=#{productCategory,jdbcType=VARCHAR}
-  </select>
   <select id="selectByProductIdAndProductCategory" parameterType="map" resultMap="BaseResultMap">
-    select * from product where product_id=#{productId} AND product_category=#{productCategory}
+    select * from product where product_id=#{productId} AND product_category=#{productCategory,jdbcType=VARCHAR}
   </select>
-  <select id="selectProductListLikeProductName" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select * from PRODUCT where PRODUCT_NAME like '%'||#{keyWord}||'%'
+  <select id="selectProductListLikeProductName" parameterType="map" resultMap="ProductWithUserNicknameResultMap">
+    select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID where (p.PRODUCT_NAME like '%'||#{keyword,jdbcType=VARCHAR}||'%') order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only
   </select>
 </mapper>

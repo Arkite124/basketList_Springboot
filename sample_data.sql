@@ -1,12 +1,12 @@
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'admin1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '관리자', 'ADMIN');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'goodseller1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '굿셀러', 'SELLER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'goodseller2', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '우수판매원', 'SELLER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ('customer1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'VIP고객', 'BUYER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'multiUser1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '상품좋음', 'BOTH');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'sellerA', 'pass1234', NULL, '한개만팜', 'SELLER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role)VALUES ( 'sellerB', 'pass1234', NULL, '판매다양', 'SELLER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'buyer01', 'pass1234', NULL, 'VVIP고객', 'BUYER');
-INSERT INTO users (user_name, password, profile_img_url, user_nickname, role) VALUES ( 'multiUser2', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '평판좋음', 'BOTH');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction,role) VALUES ( 'admin1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'Administrator', '관리자계정','ADMIN');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction,role) VALUES ( 'goodseller1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '굿셀러','좋은 상품만 모아 팝니다' ,'SELLER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ( 'goodseller2', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '우수판매원','품질이 좋은 제품만을 고집합니다.', 'SELLER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ('customer1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'VIP고객','좋은걸 살테니 좋은 것좀 올려주세요', 'BUYER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ( 'multiUser1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'bestProduct','좋은것도 사고 좋은 물건도 올려드립니다.', 'BOTH');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ( 'sellerA', 'pass1234', NULL, '한개만팜','딱 한개의 물품만을 취급합니다.', 'SELLER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role)VALUES ( 'sellerB', 'pass1234', NULL, '판매다양', '품질좋은 물품 여러개를 취급힙니다.','SELLER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ( 'buyer01', 'pass1234', NULL, 'VVIP고객','많이 많이 사겠습니다?' ,'BUYER');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ( 'multiUser2', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '평판좋음','별점 5개를 목표로 합니다. 좋은 물건도 삽니다.', 'BOTH');
 /*사용자 9명 실질 판매자 5명*/
 COMMIT;
 /*샘플 상품 70개*/
@@ -328,4 +328,7 @@ VALUES (9, 'multiUser2@example.com', '01099999999', 1, 0,  TO_TIMESTAMP('1994-11
 UPDATE USERDETAILS
 SET  created_at = CAST(TO_CHAR(SYSDATE - (DBMS_RANDOM.VALUE(3600*24*31, 3600*24*40)/24/60/60) , 'YYYY-MM-DD HH24:MI:SS')as timestamp)
 WHERE created_at>SYSTIMESTAMP;
+UPDATE USERDETAILS
+SET  birth_date = CAST(TO_CHAR(SYSDATE - (DBMS_RANDOM.VALUE(3600*24*365*25, 3600*24*365*35)/24/60/60) , 'YYYY-MM-DD')as timestamp)
+WHERE birth_date IS NOT NULL;
 COMMIT;

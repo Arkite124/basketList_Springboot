@@ -24,7 +24,7 @@ public class UserAPIController {
 
     @GetMapping("/userInfo")
     public ResponseEntity<?> getUserInfo(@RequestParam String userNickname) {
-        Users userInfo=usersService.InfoSelectedUser(userNickname);
+        Users userInfo=usersService.getUserByUserNickname(userNickname);
         System.out.println("유저 정보 :"+userInfo);
         return ResponseEntity.ok().body(userInfo);
     }

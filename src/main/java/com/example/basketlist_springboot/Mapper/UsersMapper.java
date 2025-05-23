@@ -10,7 +10,7 @@ public interface UsersMapper {
     Users selectByUserId(Integer userId); //특정 유저 조회
     int updateByIdSelective(Users users); //유저정보 업데이트(선택적이니 이게 더 적절할듯)
     Users selectUserAndUserDetailByUserId(Integer userId);
-    Users selectUserByUserNickName(String userNickName); //닉네임으로 유저 조회할때 -> 파라미터로 써도 되고 유니크라서 중복체크용으로 써도 됨
+    Users selectUserByUserNickName(String userNickName); //닉네임으로 유저 조회할때 -> 파라미터로 써도 문제 없음
     String checkUserName(String userName); //아이디 중복체크용
-    String checkUserNickName(String userNickName);
+    String checkUserNickName(String userNickName); //닉네임 중복체크
 }

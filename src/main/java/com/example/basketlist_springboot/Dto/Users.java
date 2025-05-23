@@ -19,6 +19,7 @@ public class Users implements Serializable {
     private String password;
     private String profileImgUrl;
     private String userNickname;
+    private String selfIntroduction;
     private String role;
     private UserDetails userDetails;
 

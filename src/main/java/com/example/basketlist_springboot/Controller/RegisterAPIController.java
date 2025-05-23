@@ -127,14 +127,14 @@ public class RegisterAPIController {
             resultMap.put("nickMessage","입력된 닉네임이 없습니다.");
             return ResponseEntity.ok(resultMap);
         }
-        if(!checkedNickname) {
-            resultMap.put("checkNick",false);
-            resultMap.put("nickMessage","이미 존재하는 닉네임입니다.");
-            return ResponseEntity.ok(resultMap);
-        }
         if(nickname.length()<3){
             resultMap.put("checkNick",false);
             resultMap.put("nickMessage","닉네임은 3자 이상으로 설정하셔야 합니다.");
+            return ResponseEntity.ok(resultMap);
+        }
+        if(!checkedNickname) {
+            resultMap.put("checkNick",false);
+            resultMap.put("nickMessage","이미 존재하는 닉네임입니다.");
             return ResponseEntity.ok(resultMap);
         }
         resultMap.put("checkNick",true);
@@ -151,7 +151,7 @@ public class RegisterAPIController {
             return ResponseEntity.ok(resultMap);
         }else if(privacyAgreements==null) {
             resultMap.put("isAgree",false);
-            resultMap.put("agreeMessage","개인정보 동의를 확인하고 체크해주세요!");
+            resultMap.put("agreeMessage","개인정보 동의에 대한 내용을 보고 동의 체크박스 표시해주세요!");
             return ResponseEntity.ok(resultMap);
         }
         resultMap.put("isAgree",true);
