@@ -43,4 +43,4 @@ User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면
 12. Register : ProductList 를 제외한 전 카테고리 Controller 까지 구현, 아직 purchase(구매,모의) 는 계획에 없으므로 제외
 회원 가입시 중복체크 Controller 만듬, Login한 user의 UserDto 불러오는 메커니즘 수정
 13. Product : ProductList 기능 거의 다 끝냄, 검색기능이 정상적으로 작동하는거 같지 않아서 수정중
-모자란 기능 및 불필요한 쿼리문,서비스문 수정 및 제거
+모자란 기능 및 불필요한 쿼리문,서비스문 수정 및 제거(추가사항 : users에 self_introduction 추가함)
