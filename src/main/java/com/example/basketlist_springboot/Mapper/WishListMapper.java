@@ -8,11 +8,9 @@ import java.util.List;
 
 @Mapper
 public interface WishListMapper {
-    int deleteByPrimaryKey(WishListKey key);
-
-    int insert(WishList record);
-
+    int deleteByWishListKey(WishListKey key);
+    int deleteByWishUserNo(Integer wishUserNo);
+    int insert(WishList wishList);
     WishList selectWishListByKey(WishListKey key);
-
     List<WishList> selectAllByWishUserNo(Integer wishUserNo);
 }

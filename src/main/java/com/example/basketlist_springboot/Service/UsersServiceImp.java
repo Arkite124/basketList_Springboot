@@ -12,11 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Connection;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -31,9 +28,17 @@ public class UsersServiceImp implements UsersService {
     @Transactional
     public UserDto registerUsers(UserDto userDto) {
         Users users = new Users();
+        String checkUserName=usersMapper.checkUserName(userDto.getUserName());
+        if(checkUserName!=null || userDto.getUserName()==null){
+            return null;
+        }
         users.setUserName(userDto.getUserName());
         String BcryptPw= BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
         users.setPassword(BcryptPw);
+        String checkUserNickname=usersMapper.checkUserNickName(userDto.getUserName());
+        if(checkUserNickname!=null || userDto.getUserNickname()==null){
+            return null;
+        }
         users.setUserNickname(userDto.getUserNickname());
         users.setProfileImgUrl(userDto.getProfileImgUrl());
         users.setRole(userDto.getRole());
@@ -41,12 +46,25 @@ public class UsersServiceImp implements UsersService {
         UserDetails userDetails = new UserDetails();
         userDetails.setDetailUserNo(users.getUserId());
         userDetails.setName(userDto.getName());
+        String checkEmail= userDetailsMapper.checkUserEmail(userDto.getEmail());
+        if(checkEmail!=null || userDto.getEmail()==null){
+            return null;
+        }
         userDetails.setEmail(userDto.getEmail());
+        String checkPhone= userDetailsMapper.checkUserPhone(userDto.getPhone());
+        if(checkPhone!=null){
+            return null;
+        }
         userDetails.setPhone(userDto.getPhone());
         userDetails.setBirthDate(userDto.getBirthDate());
         userDetails.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
+        Integer checkAgreement=userDetailsMapper.checkPrivacyAgreement(userDetails.getPrivacyAgreements());
+        if(checkAgreement!=1){
+            return null;
+        }
         userDetails.setPrivacyAgreements(userDto.getPrivacyAgreements());
+        userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
         userDto.setUserId(users.getUserId());
         userDetailsMapper.insert(userDetails);
         users.setUserDetails(userDetails);
@@ -61,9 +79,9 @@ public class UsersServiceImp implements UsersService {
 
     @Override
     @Transactional
-    public Users InfoUsers(Integer userId) {
-        Users selectedUserDetail=usersMapper.selectUserAndUserDetailByUserId(userId);
-        return selectedUserDetail;
+    public UserDto InfoUsers(Integer userId) {
+        UserDto selectedUserDto=userDtoMapper.getUserDtoByUserId(userId);
+        return selectedUserDto;
     }
 
     @Override
@@ -76,14 +94,14 @@ public class UsersServiceImp implements UsersService {
     }
 
     @Override
-    public Integer UpdateUsers(Users users, Integer userId) {
+    public void UpdateUsers(Users users, Integer userId) {
         Users selectedUser=usersMapper.selectByUserId(userId);
-        users.setUserName(selectedUser.getUserName());
-        users.setUserNickname(selectedUser.getUserNickname());
-        users.setProfileImgUrl(selectedUser.getProfileImgUrl());
-        users.setRole(selectedUser.getRole());
-        users.setPassword(selectedUser.getPassword());
-        return usersMapper.updateByIdSelective(users);
+        selectedUser.setUserName(users.getUserName());
+        selectedUser.setPassword(users.getPassword());
+        selectedUser.setProfileImgUrl(users.getProfileImgUrl());
+        selectedUser.setRole(users.getRole());
+        selectedUser.setUserNickname(users.getUserNickname());
+        usersMapper.updateByIdSelective(selectedUser);
     }
 
     @Override

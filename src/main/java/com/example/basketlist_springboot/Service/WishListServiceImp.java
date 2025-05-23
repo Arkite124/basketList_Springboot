@@ -1,6 +1,7 @@
 package com.example.basketlist_springboot.Service;
 
 import com.example.basketlist_springboot.Dto.WishList;
+import com.example.basketlist_springboot.Dto.WishListKey;
 import com.example.basketlist_springboot.Mapper.WishListMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,21 +15,37 @@ public class WishListServiceImp implements WishListService {
 
     @Override
     public List<WishList> getWishListByWishUserNo(Integer wishUserNo) {
-        return List.of();
+        return wishListMapper.selectAllByWishUserNo(wishUserNo);
     }
 
     @Override
-    public WishList AddWishList(WishList wishList) {
-        return null;
+    public Integer AddWishList(Integer wishUserNo, Integer wishProductNo) {
+        WishList wishList = new WishList();
+        wishList.setWishUserNo(wishUserNo);
+        if(wishUserNo==null || wishProductNo==null){
+            return null;
+        }
+        wishList.setWishProductNo(wishProductNo);
+        return wishListMapper.insert(wishList);
     }
 
     @Override
-    public void deleteWishList(Integer wishUserNo, Integer wishProductNo) {
-
+    public Integer deleteWishList(Integer wishUserNo, Integer wishProductNo) {
+        WishListKey wishListKey = new WishListKey();
+        wishListKey.setWishUserNo(wishUserNo);
+        wishListKey.setWishProductNo(wishProductNo);
+        WishList wishList = wishListMapper.selectWishListByKey(wishListKey);
+        if(wishList==null){
+            return null;
+        }
+       return wishListMapper.deleteByWishListKey(wishListKey);
     }
 
     @Override
-    public void deleteWishListByWishUserNo(Integer wishUserNo) {
-
+    public Integer deleteWishListByWishUserNo(Integer wishUserNo) {
+        if(wishUserNo==null){
+            return null;
+        }
+        return wishListMapper.deleteByWishUserNo(wishUserNo);
     }
 }

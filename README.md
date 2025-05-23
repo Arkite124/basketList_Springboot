@@ -40,3 +40,5 @@ Controller를 통해 하나하나씩 구현해나갈 예정, 부족하다고 생
 11. Update : 각 데이터베이스에 대한걸 Update(modify)하는 것중에 User,UserDetails를 합친 UserDto가 어려우서 거기서 고전중
 자야되니 임시 커밋, 애초에 Users,UserDetails를 분리해놓은 이유는 따로 조회하기 위함이었는데 힘들어지는거 같은 느낌...?
 User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면 나머지는 단독 업데이트라 업데이트 할만할듯 함
+12. Register : ProductList 를 제외한 전 카테고리 Controller 까지 구현, 아직 purchase(구매,모의) 는 계획에 없으므로 제외
+회원 가입시 중복체크 Controller 만듬, Login한 user의 UserDto 불러오는 메커니즘 수정

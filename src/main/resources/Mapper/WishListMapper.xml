@@ -29,10 +29,14 @@
     where WISH_USER_NO = #{wishUserNo,jdbcType=INTEGER}
       and WISH_PRODUCT_NO = #{wishProductNo,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.example.basketlist_springboot.Dto.WishListKey">
+  <delete id="deleteByWishListKey" parameterType="com.example.basketlist_springboot.Dto.WishListKey">
     delete from WISHLIST
     where WISH_USER_NO = #{wishUserNo,jdbcType=INTEGER}
       and WISH_PRODUCT_NO = #{wishProductNo,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByWishUserNo" parameterType="integer">
+    delete from WISHLIST
+    where WISH_USER_NO=#{wishUserNo,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="WISH_USER_NO" keyProperty="wishUserNo" parameterType="com.example.basketlist_springboot.Dto.WishList" useGeneratedKeys="true">
     insert into WISHLIST (WISH_USER_NO,WISH_PRODUCT_NO, ADDED_AT)

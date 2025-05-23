@@ -40,7 +40,7 @@ class UsersServiceImpTest {
 
     @Test
     void infoUsers() {
-        Users selectedUser= usersService.InfoUsers(4);
+        UserDto selectedUser= usersService.InfoUsers(4);
         System.out.println(selectedUser);
     }
 

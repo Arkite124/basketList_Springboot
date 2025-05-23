@@ -65,4 +65,9 @@ class CartItemListMapperTest {
         cartItemListMapper.updateQuantity(map);
         System.out.println(cartItemListMapper.selectByCartItemId(20));
     }
+
+    @Test
+    void deleteByUserNo() {
+        System.out.println(cartItemListMapper.deleteByUserNo(9));
+    }
 }

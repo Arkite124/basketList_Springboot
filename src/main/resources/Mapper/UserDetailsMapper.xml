@@ -48,4 +48,13 @@
     </set>
     where detail_user_no=#{detailUserNo,jdbcType=INTEGER}
   </update>
+  <select id="checkUserEmail" parameterType="string" resultType="string">
+    select email from userDetails where email=#{jdbcType=VARCHAR}
+  </select>
+  <select id="checkUserPhone" parameterType="string" resultType="java.lang.String">
+    select phone from userDetails where phone=#{phone,jdbcType=VARCHAR}
+  </select>
+  <select id="checkPrivacyAgreement" resultType="integer" parameterType="integer">
+    select PRIVACY_AGREEMENTS from USERDETAILS where PRIVACY_AGREEMENTS=#{privacyAgreement,jdbcType=INTEGER}
+  </select>
 </mapper>

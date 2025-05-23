@@ -48,6 +48,16 @@ public class CartItemListServiceImp implements CartItemListService {
     }
 
     @Override
+    public void deleteCartItem(int cartItemId) {
+        cartItemListMapper.deleteByCartItemId(cartItemId);
+    }
+
+    @Override
+    public void deleteAllCartItems(int userId) {
+        cartItemListMapper.deleteByUserNo(userId);
+    }
+
+    @Override
     public int selectedCartItemPriceByUserIdAndCartItemId(int userId, int cartItemId) {
         //쉽게 말하면 고른 물품의 수량*가격
         Map<String,Integer> map=new HashMap<>();
