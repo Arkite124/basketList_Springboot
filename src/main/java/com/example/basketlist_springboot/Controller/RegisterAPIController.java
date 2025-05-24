@@ -67,7 +67,7 @@ public class RegisterAPIController {
            resultMap.put("nameMessage","이미 같은 이름의 아이디가 존재합니다.");
            return ResponseEntity.ok(resultMap);
        }
-       if(userName.length()<=6) {
+       if(userName.length()<6) {
            resultMap.put("checkName",false);
            resultMap.put("nameMessage","아이디는 6자가 넘어야 합니다.");
            return ResponseEntity.ok(resultMap);

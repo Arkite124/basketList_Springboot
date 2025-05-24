@@ -68,7 +68,7 @@ class ProductMapperTest {
     void selectProductListLikeProductName() {
         int page=0;
         int size=4;
-        String keyword="당근";
+        String keyword="한";
         Map<String,Object> map=new HashMap<>();
         Integer offset=page*size;
         map.put("keyword",keyword);

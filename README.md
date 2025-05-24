@@ -44,3 +44,4 @@ User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면
 회원 가입시 중복체크 Controller 만듬, Login한 user의 UserDto 불러오는 메커니즘 수정
 13. Product : ProductList 기능 거의 다 끝냄, 검색기능이 정상적으로 작동하는거 같지 않아서 수정중
 모자란 기능 및 불필요한 쿼리문,서비스문 수정 및 제거(추가사항 : users에 self_introduction 추가함)
+14. Config : WebConfig 추가(session 작동 가능하게) , 검색 정상적으로 됨 
