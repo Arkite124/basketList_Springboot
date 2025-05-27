@@ -86,8 +86,8 @@ public class UsersServiceImp implements UsersService {
     }
 
     @Override
-    public UserDto LoginUsers(String userName, String password) {
-        UserDto user=userDtoMapper.getUserDtoByUserName(userName);
+    public UserDto LoginUsers(String username, String password) {
+        UserDto user=userDtoMapper.getUserDtoByUserName(username);
         if(user!=null && passwordEncoder.matches(password,user.getPassword())){
             return userDtoMapper.getUserDtoByUserId(user.getUserId());
         }

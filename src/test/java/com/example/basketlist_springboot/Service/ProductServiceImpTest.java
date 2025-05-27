@@ -28,6 +28,12 @@ class ProductServiceImpTest {
 
     }
 
+    @Test
+    void getRandomThree() {
+        System.out.println(productService.getRandomThree());
+
+    }
+
 //    @Test
 //    void getProductListByUserId() {
 //        List<Product> productList = productService.getProductListByUserId(2);

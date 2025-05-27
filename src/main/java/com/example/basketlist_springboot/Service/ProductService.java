@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ProductService {
-    public Page<Product> getProductPage(int page, int size); //전체 목록 페이지화
+    public List<Product> getRandomThree();
     public Page<Product> getProductPageByCategory(String category,int page,int size); //카테고리별 목록 페이지화
     public List<Product> getProductListByUserNickname(String userNickname); //판매자가 상품판매목록 조회
     public Product getProductByProductName(String productName); //상품 번호로 상품 조회

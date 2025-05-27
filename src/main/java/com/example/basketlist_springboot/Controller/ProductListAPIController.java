@@ -15,18 +15,18 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/product")
 @AllArgsConstructor
 @CrossOrigin("http://localhost:3000")
 public class ProductListAPIController {
-    private final UsersService usersService;
     private final ProductService productService;
 
-    @GetMapping("/list")
-    public Page<Product> getProductPages(@RequestParam int page, @RequestParam int size) {
-        return productService.getProductPage(page, size);
+    @GetMapping("/main")
+    public List<Product> getProductRandomThree() {
+        return productService.getRandomThree();
     }
     //모든 상품 조회
 

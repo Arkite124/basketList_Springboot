@@ -16,10 +16,10 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
 </resultMap>
     <select id="getUserDtoByUserId" resultMap="BaseResultMap" parameterType="integer">
-        select u.PROFILE_IMG_URL,u.USER_NICKNAME,u.ROLE,u.self_introduction,uD.* from users u,userDetails uD where user_id=#{userId} AND detail_user_no=#{userId}
+        select u.USER_ID,u.PROFILE_IMG_URL,u.USER_NICKNAME,u.ROLE,u.self_introduction,uD.* from users u,userDetails uD where user_id=#{userId} AND detail_user_no=#{userId}
     </select>
     <select id="getUserDtoByUserNameAndPassword" parameterType="map" resultMap="BaseResultMap">
-        select u.profile_img_url,u.user_nickname,u.role,u.self_introduction,uD.* from users u,userDetails uD where u.user_name=#{userName,jdbcType=VARCHAR}
+        select u.user_id,u.profile_img_url,u.user_nickname,u.role,u.self_introduction,uD.* from users u,userDetails uD where u.user_name=#{userName,jdbcType=VARCHAR}
                     AND u.password=#{password,jdbcType=VARCHAR} AND u.USER_ID=uD.DETAIL_USER_NO
     </select>
     <select id="getUserDtoByUserName" parameterType="string" resultMap="BaseResultMap">

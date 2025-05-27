@@ -29,11 +29,18 @@
     from product
     where PRODUCT_NAME=#{productName,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="ProductWithUserNicknameResultMap" parameterType="map">
-    select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only
+  <select id="selectRandomThree" resultMap="ProductWithUserNicknameResultMap">
+    select * from (select p.*,u.user_nickname from product p left join users u on user_id=product_user_no
+    order by DBMS_RANDOM.RANDOM)  where ROWNUM &lt;= 3
   </select>
   <select id="selectByCategory" resultMap="ProductWithUserNicknameResultMap" parameterType="map">
-    select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID where PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only
+    select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID
+   <where>
+       <if test="product_category!=null">
+        p.PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR}
+       </if>
+   </where>
+   order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only
   </select>
   <select id="selectProductListByProductUserNickname" parameterType="string" resultMap="ProductWithUserNicknameResultMap">
     select p.*,u.USER_NICKNAME from PRODUCT p left join Users u on u.USER_ID=p.PRODUCT_USER_NO where u.USER_NICKNAME=#{userNickname,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC

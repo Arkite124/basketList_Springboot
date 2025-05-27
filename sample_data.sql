@@ -1,4 +1,4 @@
-INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction,role) VALUES ( 'admin1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'Administrator', '관리자계정','ADMIN');
+INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction,role) VALUES ( 'admin1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'Admin', '관리자계정','ADMIN');
 INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction,role) VALUES ( 'goodseller1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '굿셀러','좋은 상품만 모아 팝니다' ,'SELLER');
 INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ( 'goodseller2', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, '우수판매원','품질이 좋은 제품만을 고집합니다.', 'SELLER');
 INSERT INTO users (user_name, password, profile_img_url, user_nickname,self_introduction, role) VALUES ('customer1', '$2a$10$utd1m3OuHdqfpUKM8GNDAeYqTWB5ycrTOPZ9NUVNpiFlmaxNqhmFO', NULL, 'VIP고객','좋은걸 살테니 좋은 것좀 올려주세요', 'BUYER');

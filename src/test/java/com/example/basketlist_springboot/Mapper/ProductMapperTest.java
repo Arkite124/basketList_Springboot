@@ -4,7 +4,6 @@ import com.example.basketlist_springboot.Dto.Product;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
@@ -37,14 +36,8 @@ class ProductMapperTest {
 
     @Test
     @Transactional
-    void selectAll() {
-        Map<String,Integer> map=new HashMap<>();
-        int page=0;
-        int size=4;
-        Integer offset=page*size;
-        map.put("offset",offset);
-        map.put("size",size);
-        List<Product> productList=productMapper.selectAll(map);
+    void selectRandomThree() {
+        List<Product> productList=productMapper.selectRandomThree();
         System.out.print(productList);
     }
 
@@ -54,7 +47,7 @@ class ProductMapperTest {
         int page=0;
         int size=4;
         Map<String,Object> map=new HashMap<>();
-        String category="Fresh";
+        String category=null;
         Integer offset=page*size;
         map.put("category",category);
         map.put("offset",offset);

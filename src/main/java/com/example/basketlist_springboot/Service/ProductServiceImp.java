@@ -22,15 +22,8 @@ public class ProductServiceImp implements ProductService {
     private final UsersMapper usersMapper;
 
     @Override
-    public Page<Product> getProductPage(int page, int size) {
-        Map<String,Integer> map=new HashMap<>();
-        Integer offset=page*size;
-        map.put("offset",offset);
-        map.put("size",size);
-        List<Product> productList=productMapper.selectAll(map);
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Product> productPage=new PageImpl<>(productList,pageable,productList.size());
-        return productPage;
+    public List<Product> getRandomThree() {
+        return productMapper.selectRandomThree();
     }
 
     @Override
