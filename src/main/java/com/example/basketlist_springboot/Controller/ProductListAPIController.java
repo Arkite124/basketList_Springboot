@@ -2,12 +2,14 @@ package com.example.basketlist_springboot.Controller;
 
 import com.example.basketlist_springboot.Dto.Product;
 import com.example.basketlist_springboot.Dto.UserDto;
+import com.example.basketlist_springboot.Mapper.ProductMapper;
 import com.example.basketlist_springboot.Service.ProductService;
 import com.example.basketlist_springboot.Service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,10 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/product")
@@ -23,18 +28,21 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 public class ProductListAPIController {
     private final ProductService productService;
+    private final ProductMapper productMapper;
 
     @GetMapping("/main")
     public List<Product> getProductRandomThree() {
         return productService.getRandomThree();
     }
-    //모든 상품 조회
+    //메인 페이지 예시 3개 랜덤조회
 
     @GetMapping("/list/{category}")
-    public Page<Product> getProductPagesByCategory(@PathVariable String category, @RequestParam int page, @RequestParam int size) {
+    public Page<Product> getProductPagesByCategory(@PathVariable String category, @RequestParam int page, @RequestParam int size){
+        if(Objects.equals(category, "All")){
+            return productService.getProductPageByCategory(null, page, size);}
         return productService.getProductPageByCategory(category, page, size);
     }
-    //선택한 카테고리별 상품 조회
+    //선택한 카테고리별 상품 조회(category=null 이면 전체 조회)
 
     @GetMapping("/list/result/{keyword}")
     public Page<Product> searchProduct(@PathVariable String keyword, @RequestParam int page, @RequestParam int size) {

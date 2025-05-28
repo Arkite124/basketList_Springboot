@@ -13,7 +13,7 @@ class ProductServiceImpTest {
 
     @Test
     void getProductPageByCategory() {
-        Page<Product> productPages = productService.getProductPageByCategory("Fresh",1,4);
+        Page<Product> productPages = productService.getProductPageByCategory(null,0,4);
         System.out.println(productPages.getContent());
     }
 

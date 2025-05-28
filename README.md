@@ -46,3 +46,4 @@ User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면
 모자란 기능 및 불필요한 쿼리문,서비스문 수정 및 제거(추가사항 : users에 self_introduction 추가함)
 14. Config : WebConfig 추가(session 작동 가능하게) , 검색 정상적으로 됨 
 15. main : 메인에 쓸 상품 리스트 3개 랜덤으로 불러와지는 기능 추가 (기존 selectAll을 바꿈)
+16. product : category를 null로 그대로 받으면 오류가 발생하여 All로 받고 null로 치환하는 코드로 바꿈

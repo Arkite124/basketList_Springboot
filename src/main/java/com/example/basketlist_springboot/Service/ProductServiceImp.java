@@ -30,7 +30,8 @@ public class ProductServiceImp implements ProductService {
     public Page<Product> getProductPageByCategory(String category, int page, int size) {
         Map<String,Object> map=new HashMap<>();
         Integer offset=page*size;
-        map.put("category",category);
+        if(category!=null){
+        map.put("category",category);}
         map.put("offset",offset);
         map.put("size",size);
         List<Product> productList=productMapper.selectByCategory(map);

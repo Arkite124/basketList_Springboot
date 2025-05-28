@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.basketlist_springboot.Mapper.ProductMapper">
   <resultMap id="BaseResultMap" type="com.example.basketlist_springboot.Dto.Product">
+    <id column="product_id" jdbcType="INTEGER" property="productId"/>
     <result column="product_category" jdbcType="VARCHAR" property="productCategory" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="product_img_url" jdbcType="VARCHAR" property="productImgUrl" />
@@ -11,6 +12,7 @@
     <result column="product_added_at" jdbcType="TIMESTAMP" property="productAddedAt"/>
   </resultMap>
   <resultMap id="ProductWithUserNicknameResultMap" type="com.example.basketlist_springboot.Dto.Product">
+    <id column="product_id" jdbcType="INTEGER" property="productId"/>
     <result column="product_category" jdbcType="VARCHAR" property="productCategory" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="product_img_url" jdbcType="VARCHAR" property="productImgUrl" />
@@ -36,8 +38,17 @@
   <select id="selectByCategory" resultMap="ProductWithUserNicknameResultMap" parameterType="map">
     select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID
    <where>
-       <if test="product_category!=null">
-        p.PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR}
+       <if test="category!=null">
+        PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR}
+       </if>
+   </where>
+   order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only
+  </select>
+  <select id="selectPageable" resultMap="ProductWithUserNicknameResultMap" parameterType="map">
+    select p.*,u.USER_NICKNAME from product p left join users u on p.PRODUCT_USER_NO = u.USER_ID
+   <where>
+       <if test="category!=null">
+        PRODUCT_CATEGORY=#{category,jdbcType=VARCHAR}
        </if>
    </where>
    order by PRODUCT_ADDED_AT DESC offset #{offset,jdbcType=INTEGER} rows fetch next #{size,jdbcType=INTEGER} rows only

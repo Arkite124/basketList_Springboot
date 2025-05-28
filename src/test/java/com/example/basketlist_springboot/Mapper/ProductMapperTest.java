@@ -47,9 +47,8 @@ class ProductMapperTest {
         int page=0;
         int size=4;
         Map<String,Object> map=new HashMap<>();
-        String category=null;
         Integer offset=page*size;
-        map.put("category",category);
+        map.put("category",null);
         map.put("offset",offset);
         map.put("size",size);
         List<Product> productList = productMapper.selectByCategory(map);
