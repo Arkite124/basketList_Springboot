@@ -102,4 +102,9 @@ public class ProductServiceImp implements ProductService {
         updateProduct.setProductImgUrl(product.getProductImgUrl());
         productMapper.updateByProductIdSelective(updateProduct);
     }
+
+    @Override
+    public Integer getProductCountByCategory(String category) {
+        return productMapper.CountTotalProduct(category);
+    }
 }

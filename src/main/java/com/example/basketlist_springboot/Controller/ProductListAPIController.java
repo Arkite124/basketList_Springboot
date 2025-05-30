@@ -28,7 +28,6 @@ import java.util.Objects;
 @CrossOrigin("http://localhost:3000")
 public class ProductListAPIController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
 
     @GetMapping("/main")
     public List<Product> getProductRandomThree() {
@@ -49,6 +48,15 @@ public class ProductListAPIController {
         return productService.searchProductsByKeyWord(keyword, page, size);
     }
     //상품 검색 결과 조회
+
+    @GetMapping("/list/total")
+    public Integer getTotalProducts(@RequestParam String category) {
+        if(Objects.equals(category, "All")){
+            return productService.getProductCountByCategory(null);
+        }
+        return productService.getProductCountByCategory(category);
+    }
+    //카테고리별 총 상품갯수 -> totalPage를 구현하기 위해서
 
     @PostMapping("/list")
     public ResponseEntity<?> addProduct(@RequestBody Product product, HttpServletRequest request) {

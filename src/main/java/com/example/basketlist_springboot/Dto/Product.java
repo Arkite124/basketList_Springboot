@@ -23,6 +23,7 @@ public class Product implements Serializable {
     private Integer productQuantity;
     private Timestamp productAddedAt;
 
+    private Integer totalCount;
     private Users users;
 
     private static final long serialVersionUID = 1L;

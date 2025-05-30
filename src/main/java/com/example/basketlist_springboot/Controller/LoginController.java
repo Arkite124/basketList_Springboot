@@ -34,17 +34,13 @@ public class LoginController {
     }
 
     @GetMapping("/login/me")
-    public ResponseEntity<?> me(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session=request.getSession(false);
+    public ResponseEntity<?> me(HttpServletRequest request) {
+        HttpSession session=request.getSession();
         if(session!=null) {
-            UserDto user=(UserDto)session.getAttribute("loginUser");
-            return ResponseEntity.ok().body(user);
+            UserDto userDto=(UserDto)session.getAttribute("loginUser");
+            return ResponseEntity.ok().body(userDto);
         }
-        Cookie cookie = new Cookie("JSESSIONID", null);
-        cookie.setMaxAge(0);
-        cookie.setPath("/"); // 애플리케이션 루트 경로 기준으로 설정
-        response.addCookie(cookie);
-        return ResponseEntity.ok().body("세션이 만료되어서 로그아웃 됩니다!");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("다시 로그인 하세요");
     }
 
     @PostMapping("/logout")
@@ -55,7 +51,7 @@ public class LoginController {
         }
         Cookie cookie = new Cookie("JSESSIONID", null);
         cookie.setMaxAge(0);
-        cookie.setPath("/"); // 애플리케이션 루트 경로 기준으로 설정
+        cookie.setPath("/"); // 애플리케이션 경로 기준으로 똑같이 설정
         response.addCookie(cookie);
        return ResponseEntity.ok().build();
     }

@@ -99,4 +99,10 @@ class ProductMapperTest {
         List<Product> productList = productMapper.selectProductListByProductUserNickname(productUserNickname);
         System.out.println(productList);
     }
+
+    @Test
+    @Transactional
+    void countTotalProduct() {
+        System.out.println(productMapper.CountTotalProduct(null));
+    }
 }
