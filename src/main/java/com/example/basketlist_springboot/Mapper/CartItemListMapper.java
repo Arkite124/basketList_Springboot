@@ -10,7 +10,7 @@ import java.util.Map;
 public interface CartItemListMapper {
     int deleteByUserNo(Integer listUserNo); // 유저가 장바구니 목록 전체삭제
     int deleteByCartItemId(Integer cartItemId); //장바구니 목록 '한개'삭제
-    int insert(CartItemList record); //장바구니 목록 등록
+    int insert(CartItemList cartItemList); //장바구니 목록 등록
     Integer updateQuantity(Map<String,Integer> map); //수량 수정
     CartItemList selectByCartItemId(Integer cartItemId);
     List<CartItemList> selectByUserId(Integer ListUserNo);

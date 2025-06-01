@@ -16,13 +16,9 @@ import lombok.*;
 @NoArgsConstructor
 public class CartItemList implements Serializable {
     private Integer cartItemId;
-
     private Integer productNo;
-
     private Integer listUserNo;
-
     private Integer quantity;
-
     private Timestamp addedAt;
 
     private Integer selectedPrice;

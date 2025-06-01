@@ -23,7 +23,6 @@ import java.util.List;
 @CrossOrigin("http://localhost:3000")
 public class CartItemAPIController {
     private final CartItemListService cartItemListService;
-    private final UsersService usersService;
 
     @GetMapping("/myList")
     ResponseEntity<?> getCartItemList(HttpServletRequest request) {

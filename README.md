@@ -48,3 +48,4 @@ User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면
 15. main : 메인에 쓸 상품 리스트 3개 랜덤으로 불러와지는 기능 추가 (기존 selectAll을 바꿈)
 16. product : category를 null로 그대로 받으면 오류가 발생하여 All로 받고 null로 치환하는 코드로 바꿈
 17. totalCount : 프론트에서 totalPage를 구성하기 위해 mapper->service->controller에 count를 넘기는 코드를 추가
+18. modify1: 사소한 코드 리펙토링
