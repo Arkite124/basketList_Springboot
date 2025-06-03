@@ -76,10 +76,10 @@
   <select id="selectUserByUserNickName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select u.PROFILE_IMG_URL,u.USER_NICKNAME,u.ROLE,u.SELF_INTRODUCTION from USERS u where u.USER_NICKNAME=#{userNickname,jdbcType=VARCHAR}
   </select>
-  <select id="checkUserName" parameterType="java.lang.String" resultType="string">
-    select user_name from users where user_name=#{userName,jdbcType=INTEGER}
+  <select id="checkUserName" parameterType="java.lang.String" resultType="integer">
+   select count(*) from users where user_name=#{userName,jdbcType=VARCHAR}
   </select>
-  <select id="checkUserNickName" parameterType="string" resultType="string">
-    select user_nickname from users where user_nickname=#{userNickname,jdbcType=VARCHAR}
+  <select id="checkUserNickName" parameterType="string" resultType="integer">
+    select count(*) from users where user_nickname=#{userNickname,jdbcType=VARCHAR}
   </select>
 </mapper>

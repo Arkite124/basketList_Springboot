@@ -30,7 +30,7 @@
          email=#{email,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
-         phone=#{phone,jdbcType=INTEGER},
+         phone=#{phone,jdbcType=VARCHAR},
       </if>
          privacy_agreements=1,
       <if test="marketingAgreements != null">
@@ -48,11 +48,11 @@
     </set>
     where detail_user_no=#{detailUserNo,jdbcType=INTEGER}
   </update>
-  <select id="checkUserEmail" parameterType="string" resultType="string">
-    select email from userDetails where email=#{jdbcType=VARCHAR}
+  <select id="checkUserEmail" parameterType="string" resultType="integer">
+    select count(*) from userDetails where email=#{jdbcType=VARCHAR}
   </select>
-  <select id="checkUserPhone" parameterType="string" resultType="java.lang.String">
-    select phone from userDetails where phone=#{phone,jdbcType=VARCHAR}
+  <select id="checkUserPhone" parameterType="string" resultType="integer">
+    select count(*) from userDetails where phone=#{phone,jdbcType=VARCHAR}
   </select>
   <select id="checkPrivacyAgreement" resultType="integer" parameterType="integer">
     select PRIVACY_AGREEMENTS from USERDETAILS where PRIVACY_AGREEMENTS=#{privacyAgreement,jdbcType=INTEGER}

@@ -51,4 +51,16 @@ class UsersMapperTest {
         String nickName="굿셀러";
         System.out.println(usersMapper.selectUserByUserNickName(nickName));
     }
+
+    @Test
+    void checkUserName() {
+        String userName="admin1";
+        System.out.println(usersMapper.checkUserName(userName));
+    }
+
+    @Test
+    void checkUserNickName() {
+        String nickName="굿셀러1";
+        System.out.println(usersMapper.checkUserNickName(nickName));
+    }
 }

@@ -49,3 +49,5 @@ User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면
 16. product : category를 null로 그대로 받으면 오류가 발생하여 All로 받고 null로 치환하는 코드로 바꿈
 17. totalCount : 프론트에서 totalPage를 구성하기 위해 mapper->service->controller에 count를 넘기는 코드를 추가
 18. modify1: 사소한 코드 리펙토링
+19. signup : Service 까지는 제대로 된 리턴값이 오는걸 봤는데 컨트롤러에서 전달을 이상하게 해서 결과값이 무조건 true가 나옴
+파라미터 이상 없었는데 내일 다시 봐야겠습니다. 

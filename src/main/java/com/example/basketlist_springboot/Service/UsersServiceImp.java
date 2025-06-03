@@ -28,15 +28,15 @@ public class UsersServiceImp implements UsersService {
     @Transactional
     public UserDto registerUsers(UserDto userDto) {
         Users users = new Users();
-        String checkUserName=usersMapper.checkUserName(userDto.getUserName());
-        if(checkUserName!=null || userDto.getUserName()==null){
+        Integer checkUserName=usersMapper.checkUserName(userDto.getUserName());
+        if(checkUserName==1 || userDto.getUserName()==null){
             return null;
         }
         users.setUserName(userDto.getUserName());
         String BcryptPw= BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
         users.setPassword(BcryptPw);
-        String checkUserNickname=usersMapper.checkUserNickName(userDto.getUserName());
-        if(checkUserNickname!=null || userDto.getUserNickname()==null){
+        Integer checkUserNickname=usersMapper.checkUserNickName(userDto.getUserName());
+        if(checkUserNickname==1 || userDto.getUserNickname()==null){
             return null;
         }
         users.setUserNickname(userDto.getUserNickname());
@@ -47,13 +47,13 @@ public class UsersServiceImp implements UsersService {
         UserDetails userDetails = new UserDetails();
         userDetails.setDetailUserNo(users.getUserId());
         userDetails.setName(userDto.getName());
-        String checkEmail= userDetailsMapper.checkUserEmail(userDto.getEmail());
-        if(checkEmail!=null || userDto.getEmail()==null){
+        Integer checkEmail= userDetailsMapper.checkUserEmail(userDto.getEmail());
+        if(checkEmail==1 || userDto.getEmail()==null){
             return null;
         }
         userDetails.setEmail(userDto.getEmail());
-        String checkPhone= userDetailsMapper.checkUserPhone(userDto.getPhone());
-        if(checkPhone!=null){
+        Integer checkPhone= userDetailsMapper.checkUserPhone(userDto.getPhone());
+        if(checkPhone==1 || userDto.getPhone()==null){
             return null;
         }
         userDetails.setPhone(userDto.getPhone());

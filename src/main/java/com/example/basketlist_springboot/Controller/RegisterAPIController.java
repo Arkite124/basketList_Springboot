@@ -33,7 +33,7 @@ public class RegisterAPIController {
     public ResponseEntity<Map<String,Object>> confirmPassword(@RequestBody ConfirmPwDto dto) {
         Boolean checkPw=registerService.checkConfirmPassword(dto.getPassword(),dto.getConfirmPassword());
         Map<String,Object> resultMap=new HashMap<>();
-        if(checkPw==null) {
+        if(dto.getPassword()==null) {
             resultMap.put("checkPw",false);
             resultMap.put("pwMessage","비밀번호가 입력되지 않았습니다.");
             return ResponseEntity.ok(resultMap);
@@ -43,13 +43,12 @@ public class RegisterAPIController {
             resultMap.put("pwMessage","비밀번호는 8자리 이상으로 입력해야 합니다.");
             return ResponseEntity.ok(resultMap);
         }
-        if(!checkPw) {
-            resultMap.put("checkPw",false);
-            resultMap.put("pwMessage","입력된 비밀번호가 일치하지 않습니다.");
-            return ResponseEntity.ok(resultMap);
-        }
-        resultMap.put("checkPw",true);
+        if(checkPw==true){resultMap.put("checkPw",true);
         resultMap.put("pwMessage","비밀번호 확인이 완료되었습니다.");
+        return ResponseEntity.ok(resultMap);
+        }
+        resultMap.put("checkPw",false);
+        resultMap.put("pwMessage","입력된 비밀번호가 일치하지 않습니다.");
         return ResponseEntity.ok(resultMap);
     }
 
@@ -57,24 +56,24 @@ public class RegisterAPIController {
     public ResponseEntity<Map<String,Object>> userName(@RequestBody String userName) {
        Boolean checkUName=registerService.checkDuplicateUsername(userName);
         Map<String,Object> resultMap=new HashMap<>();
-       if(checkUName==null) {
+       if(userName==null) {
            resultMap.put("checkName",false);
            resultMap.put("nameMessage","입력된 아이디가 없습니다.");
-           return ResponseEntity.ok(resultMap);
+           return ResponseEntity.ok().body(resultMap);
        }
-       if(!checkUName) {
-           resultMap.put("checkName",false);
-           resultMap.put("nameMessage","이미 같은 이름의 아이디가 존재합니다.");
-           return ResponseEntity.ok(resultMap);
+       if(checkUName==true) {
+           resultMap.put("checkName",true);
+           resultMap.put("nameMessage","사용가능한 아이디입니다.");
+           return ResponseEntity.ok().body(resultMap);
        }
        if(userName.length()<6) {
            resultMap.put("checkName",false);
            resultMap.put("nameMessage","아이디는 6자가 넘어야 합니다.");
-           return ResponseEntity.ok(resultMap);
+           return ResponseEntity.ok().body(resultMap);
        }
-        resultMap.put("checkName",true);
-        resultMap.put("nameMessage","사용가능한 아이디입니다.");
-        return ResponseEntity.ok(resultMap);
+        resultMap.put("checkName",false);
+        resultMap.put("nameMessage","이미 같은 이름의 아이디가 존재합니다.");
+        return ResponseEntity.ok().body(resultMap);
     }
 
     @PostMapping("/check-email")
@@ -119,15 +118,15 @@ public class RegisterAPIController {
         return ResponseEntity.ok(resultMap);
     }
     @GetMapping("/check-nickname")
-    public ResponseEntity<Map<String,Object>> checkNickname(@RequestParam String nickname) {
-        Boolean checkedNickname=registerService.checkDuplicateUserNickname(nickname);
+    public ResponseEntity<Map<String,Object>> checkNickname(@RequestParam String userNickname) {
+        Boolean checkedNickname=registerService.checkDuplicateUserNickname(userNickname);
         Map<String,Object> resultMap=new HashMap<>();
-        if(nickname==null) {
+        if(userNickname ==null) {
             resultMap.put("checkNick",false);
             resultMap.put("nickMessage","입력된 닉네임이 없습니다.");
             return ResponseEntity.ok(resultMap);
         }
-        if(nickname.length()<3){
+        if(userNickname.length()<3){
             resultMap.put("checkNick",false);
             resultMap.put("nickMessage","닉네임은 3자 이상으로 설정하셔야 합니다.");
             return ResponseEntity.ok(resultMap);
