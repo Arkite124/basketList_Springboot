@@ -5,6 +5,6 @@ public interface RegisterService {
     public Boolean checkDuplicateUserNickname(String nickname);
     public Boolean checkDuplicateEmail(String email);
     public Boolean checkDuplicatePhoneNumber(String phoneNumber);
-    public Boolean checkPrivacyAgreement(Integer privacyAgreement);
+    public Boolean checkPrivacyAgreement(Short privacyAgreement);
     public Boolean checkConfirmPassword(String password, String confirmPassword);
 }

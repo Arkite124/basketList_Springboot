@@ -51,3 +51,6 @@ User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면
 18. modify1: 사소한 코드 리펙토링
 19. signup : Service 까지는 제대로 된 리턴값이 오는걸 봤는데 컨트롤러에서 전달을 이상하게 해서 결과값이 무조건 true가 나옴
 파라미터 이상 없었는데 내일 다시 봐야겠습니다. 
+20. signup2 : 구조를 다시 한 번 건드려야 할 것 같아서 privacyAgreements와 MarketingAgreement는 사실 Boolean 으로 전달이 되면 되는데 
+userDto 에서 Get 하면 유저 모두가 동의한 9개의 users의 데이터가 나옵니다. 그래서 다시 건드려 봐야 합니다. 이미지 첨부와 동의 말고는 구조수정이 
+거의 다 끝난 것 같습니다.

@@ -53,22 +53,23 @@ public class RegisterAPIController {
     }
 
     @PostMapping("/check-userName")
-    public ResponseEntity<Map<String,Object>> userName(@RequestBody String userName) {
+    public ResponseEntity<Map<String,Object>> checkUserName(@RequestBody UserDto userDto) {
+        String userName=userDto.getUserName();
        Boolean checkUName=registerService.checkDuplicateUsername(userName);
         Map<String,Object> resultMap=new HashMap<>();
-       if(userName==null) {
+   if(userDto.getUserName()==null || userDto.getUserName().isEmpty()) {
            resultMap.put("checkName",false);
            resultMap.put("nameMessage","입력된 아이디가 없습니다.");
            return ResponseEntity.ok().body(resultMap);
        }
-       if(checkUName==true) {
+        if(userDto.getUserName().length()<6) {
+            resultMap.put("checkName",false);
+            resultMap.put("nameMessage","아이디는 6자가 넘어야 합니다.");
+            return ResponseEntity.ok().body(resultMap);
+        }
+        if(checkUName==true) {
            resultMap.put("checkName",true);
            resultMap.put("nameMessage","사용가능한 아이디입니다.");
-           return ResponseEntity.ok().body(resultMap);
-       }
-       if(userName.length()<6) {
-           resultMap.put("checkName",false);
-           resultMap.put("nameMessage","아이디는 6자가 넘어야 합니다.");
            return ResponseEntity.ok().body(resultMap);
        }
         resultMap.put("checkName",false);
@@ -77,25 +78,27 @@ public class RegisterAPIController {
     }
 
     @PostMapping("/check-email")
-    public ResponseEntity<Map<String,Object>> email(@RequestBody String email) {
+    public ResponseEntity<Map<String,Object>> email(@RequestBody UserDto userDto) {
+        String email=userDto.getEmail();
         Boolean checkEmail=registerService.checkDuplicateEmail(email);
         Map<String,Object> resultMap=new HashMap<>();
-        if(checkEmail==null) {
+        if(email==null) {
             resultMap.put("checkEmail",false);
-            resultMap.put("nameMessage","입력된 이메일이 없습니다.");
+            resultMap.put("mailMessage","입력된 이메일이 없습니다.");
             return ResponseEntity.ok(resultMap);
         }
         if(!checkEmail) {
             resultMap.put("checkEmail",false);
-            resultMap.put("nameMessage","이미 같은 이름의 이메일 주소가 있습니다.");
+            resultMap.put("mailMessage","이미 같은 이름의 이메일 주소가 있습니다.");
             return ResponseEntity.ok(resultMap);
         }
         resultMap.put("checkEmail",true);
-        resultMap.put("nameMessage","사용가능한 이메일 주소입니다.");
+        resultMap.put("mailMessage","사용가능한 이메일 주소입니다.");
         return ResponseEntity.ok(resultMap);
     }
     @PostMapping("/check-phone")
-    public ResponseEntity<Map<String,Object>> phone(@RequestBody String phone) {
+    public ResponseEntity<Map<String,Object>> phone(@RequestBody UserDto userDto) {
+        String phone=userDto.getPhone();
         Boolean checkPhoneNum=registerService.checkDuplicatePhoneNumber(phone);
         Map<String,Object> resultMap=new HashMap<>();
         if(checkPhoneNum==null) {
@@ -141,7 +144,7 @@ public class RegisterAPIController {
         return ResponseEntity.ok(resultMap);
     }
     @PostMapping("/check-privacyAgreements")
-    public ResponseEntity<Map<String,Object>> checkAgreements(@RequestBody Integer privacyAgreements) {
+    public ResponseEntity<Map<String,Object>> checkAgreements(@RequestBody Short privacyAgreements) {
         Boolean checkedAgreements=registerService.checkPrivacyAgreement(privacyAgreements);
         Map<String,Object> resultMap=new HashMap<>();
         if(checkedAgreements==null || !checkedAgreements) {
