@@ -54,3 +54,5 @@ User,UserDetails를 묶은 UserDto만 업데이트 객체를 구현하고 나면
 20. signup2 : 구조를 다시 한 번 건드려야 할 것 같아서 privacyAgreements와 MarketingAgreement는 사실 Boolean 으로 전달이 되면 되는데 
 userDto 에서 Get 하면 유저 모두가 동의한 9개의 users의 데이터가 나옵니다. 그래서 다시 건드려 봐야 합니다. 이미지 첨부와 동의 말고는 구조수정이 
 거의 다 끝난 것 같습니다.
+21. signup3 : Dto Agreements 구조를 short 에서 Boolean 으로 변경, 약관동의 확인 코드 변경 백앤드 쪽은 거의 끝난듯 함 마지막 user가 생성되는지
+확인하는 절차만 남았음

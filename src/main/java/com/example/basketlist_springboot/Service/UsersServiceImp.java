@@ -60,16 +60,16 @@ public class UsersServiceImp implements UsersService {
         userDetails.setBirthDate(userDto.getBirthDate());
         userDetails.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
-        short privacyAgreement= userDto.getPrivacyAgreements();
-        if(privacyAgreement!=1){
+        Boolean privacyAgreement= userDto.getPrivacyAgreements();
+        if(privacyAgreement!=true){
             return null;
         }
-        userDetails.setPrivacyAgreements(privacyAgreement);
+        userDetails.setPrivacyAgreements(true);
         userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
         userDto.setUserId(users.getUserId());
         userDetailsMapper.insert(userDetails);
         users.setUserDetails(userDetails);
-        if(userDetails!=null && userDetails.getPrivacyAgreements()==1){
+        if(userDetails!=null && userDetails.getPrivacyAgreements()==true){
             return userDto;
         }
         if(userDetails==null){

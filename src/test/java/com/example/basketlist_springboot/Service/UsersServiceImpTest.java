@@ -33,8 +33,8 @@ class UsersServiceImpTest {
         userDto.setRole("BOTH");//user
         userDto.setEmail("good@example.com");
         userDto.setPhone("01012345678");
-        userDto.setPrivacyAgreements((short) 1);
-        userDto.setMarketingAgreements((short) 1);
+        userDto.setPrivacyAgreements(true);
+        userDto.setMarketingAgreements(false);
         userDto.setName("더조아");
         userDto.setBirthDate(Timestamp.valueOf("1996-01-03 03:00:00"));//userDetails
         UserDto newUserDto= usersService.registerUsers(userDto);

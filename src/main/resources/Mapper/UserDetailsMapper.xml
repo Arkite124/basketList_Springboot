@@ -54,7 +54,7 @@
   <select id="checkUserPhone" parameterType="string" resultType="integer">
     select count(*) from userDetails where phone=#{phone,jdbcType=VARCHAR}
   </select>
-  <select id="checkPrivacyAgreement" resultType="short" parameterType="short">
-    select PRIVACY_AGREEMENTS from USERDETAILS where PRIVACY_AGREEMENTS=#{privacyAgreement,jdbcType=INTEGER}
+  <select id="checkPrivacyAgreement" resultType="boolean" parameterType="boolean">
+    select PRIVACY_AGREEMENTS from USERDETAILS where PRIVACY_AGREEMENTS=#{privacyAgreement,jdbcType=BOOLEAN}
   </select>
 </mapper>

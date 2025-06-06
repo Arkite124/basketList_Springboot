@@ -56,9 +56,9 @@ public class RegisterServiceImp implements RegisterService {
 
     @Override
     @Transactional
-    public Boolean checkPrivacyAgreement(Short privacyAgreement) {
-        Short checkPrivacyAgreement= userDetailsMapper.checkPrivacyAgreement(privacyAgreement);
-        if(checkPrivacyAgreement==1){
+    public Boolean checkPrivacyAgreement(Boolean privacyAgreement) {
+        Boolean checkPrivacyAgreement=Boolean.TRUE.equals(privacyAgreement);
+        if(checkPrivacyAgreement){
             return true;
         }
         return false;

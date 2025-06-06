@@ -10,5 +10,5 @@ public interface UserDetailsMapper {
     int updateUserDetailsSelective(UserDetails userDetails);
     Integer checkUserEmail(String Email); //이메일 중복체크용
     Integer checkUserPhone(String Phone); //핸드폰 번호 중복체크용
-    Short checkPrivacyAgreement(short PrivacyAgreement); //개인정보 이용 동의 -> 무조건 1이어야 함 아니면 회원 이용을 못함
+    Boolean checkPrivacyAgreement(boolean PrivacyAgreement); //개인정보 이용 동의 -> 무조건 1이어야 함 아니면 회원 이용을 못함
 }

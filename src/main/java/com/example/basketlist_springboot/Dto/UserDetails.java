@@ -20,8 +20,8 @@ public class UserDetails implements Serializable {
     private Integer detailUserNo;
     private String email;
     private String phone;
-    private Short privacyAgreements;
-    private Short marketingAgreements;
+    private Boolean privacyAgreements;
+    private Boolean marketingAgreements;
     private Timestamp createdAt;
     private Timestamp birthDate;
     private String name;

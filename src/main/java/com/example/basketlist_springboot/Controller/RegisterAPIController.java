@@ -5,6 +5,7 @@ import com.example.basketlist_springboot.Dto.UserDto;
 import com.example.basketlist_springboot.Service.RegisterService;
 import com.example.basketlist_springboot.Service.UsersService;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +44,11 @@ public class RegisterAPIController {
             resultMap.put("pwMessage","비밀번호는 8자리 이상으로 입력해야 합니다.");
             return ResponseEntity.ok(resultMap);
         }
+        if(dto.getPassword().length()>=20){
+            resultMap.put("checkPw",false);
+            resultMap.put("pwMessage","비밀번호는 20자리 이하로 입력해야 합니다.");
+            return ResponseEntity.ok(resultMap);
+        }
         if(checkPw==true){resultMap.put("checkPw",true);
         resultMap.put("pwMessage","비밀번호 확인이 완료되었습니다.");
         return ResponseEntity.ok(resultMap);
@@ -65,6 +71,11 @@ public class RegisterAPIController {
         if(userDto.getUserName().length()<6) {
             resultMap.put("checkName",false);
             resultMap.put("nameMessage","아이디는 6자가 넘어야 합니다.");
+            return ResponseEntity.ok().body(resultMap);
+        }
+        if(userDto.getUserName().length()>16) {
+            resultMap.put("checkName",false);
+            resultMap.put("nameMessage","아이디는 16자가 넘을 수 없습니다.");
             return ResponseEntity.ok().body(resultMap);
         }
         if(checkUName==true) {
@@ -134,6 +145,11 @@ public class RegisterAPIController {
             resultMap.put("nickMessage","닉네임은 3자 이상으로 설정하셔야 합니다.");
             return ResponseEntity.ok(resultMap);
         }
+        if(userNickname.length()>12){
+            resultMap.put("checkNick",false);
+            resultMap.put("nickMessage","닉네임은 12자 이하로 설정하셔야 합니다.");
+            return ResponseEntity.ok(resultMap);
+        }
         if(!checkedNickname) {
             resultMap.put("checkNick",false);
             resultMap.put("nickMessage","이미 존재하는 닉네임입니다.");
@@ -144,16 +160,12 @@ public class RegisterAPIController {
         return ResponseEntity.ok(resultMap);
     }
     @PostMapping("/check-privacyAgreements")
-    public ResponseEntity<Map<String,Object>> checkAgreements(@RequestBody Short privacyAgreements) {
-        Boolean checkedAgreements=registerService.checkPrivacyAgreement(privacyAgreements);
+    public ResponseEntity<Map<String,Object>> checkAgreements(@RequestBody UserDto userDto) {
+        Boolean checkedAgreements=registerService.checkPrivacyAgreement(userDto.getPrivacyAgreements());
         Map<String,Object> resultMap=new HashMap<>();
-        if(checkedAgreements==null || !checkedAgreements) {
+        if(!checkedAgreements) {
             resultMap.put("isAgree",false);
             resultMap.put("agreeMessage","개인정보 이용 동의에 동의하지 않으시면 회원가입이 불가합니다.");
-            return ResponseEntity.ok(resultMap);
-        }else if(privacyAgreements==null) {
-            resultMap.put("isAgree",false);
-            resultMap.put("agreeMessage","개인정보 동의에 대한 내용을 보고 동의 체크박스 표시해주세요!");
             return ResponseEntity.ok(resultMap);
         }
         resultMap.put("isAgree",true);
