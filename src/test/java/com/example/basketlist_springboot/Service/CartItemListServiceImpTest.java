@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,13 +28,14 @@ class CartItemListServiceImpTest {
     @Test
     @Transactional
     void createCartItemList() {
-        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
-        CartItemList cartItemList=cartItemListService.createCartItemList(9,53,3,timestamp);
+        CartItemList cartItemList=cartItemListService.createCartItemList(9,64,3, LocalDate.now());
         System.out.println(cartItemList);
     }
 
     @Test
     void getCartItemList() {
+        List<CartItemList> list=cartItemListService.getCartItemListDetail(8);
+        System.out.println(list);
     }
 
     @Test
@@ -42,4 +45,5 @@ class CartItemListServiceImpTest {
     @Test
     void totalCartPrice() {
     }
+
 }

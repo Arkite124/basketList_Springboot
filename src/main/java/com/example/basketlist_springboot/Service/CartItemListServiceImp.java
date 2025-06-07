@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class CartItemListServiceImp implements CartItemListService {
     private final UsersMapper usersMapper;
 
     @Override
-    public CartItemList createCartItemList(int userId, int productNo, int quantity, Timestamp addedAt) {
+    public CartItemList createCartItemList(int userId, int productNo, int quantity, LocalDate addedAt) {
         Users user=usersMapper.selectByUserId(userId);
         if(user.getRole().equals("seller")){
             return null;
@@ -28,14 +29,14 @@ public class CartItemListServiceImp implements CartItemListService {
         cartItemList.setListUserNo(userId);
         cartItemList.setProductNo(productNo);
         cartItemList.setQuantity(quantity);
-        cartItemList.setAddedAt(addedAt);
+        cartItemList.setAddedAt(Timestamp.valueOf(addedAt.atStartOfDay()));
         cartItemListMapper.insert(cartItemList);
         return cartItemList;
     }
 
     @Override
-    public List<CartItemList> getCartItemList(int userId) {
-        List<CartItemList> cartItemLists=cartItemListMapper.selectByUserId(userId);
+    public List<CartItemList> getCartItemListDetail(int userId) {
+        List<CartItemList> cartItemLists=cartItemListMapper.selectDetailByUserNo(userId);
         return cartItemLists;
     }
 

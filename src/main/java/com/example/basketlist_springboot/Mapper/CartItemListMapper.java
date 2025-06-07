@@ -14,6 +14,7 @@ public interface CartItemListMapper {
     Integer updateQuantity(Map<String,Integer> map); //수량 수정
     CartItemList selectByCartItemId(Integer cartItemId);
     List<CartItemList> selectByUserId(Integer ListUserNo);
+    List<CartItemList> selectDetailByUserNo(Integer ListUserNo);
     Integer totalPrice(Integer userId); //진짜 총합 가격(쿼리 단에서 따로 구현)
     Integer selectedPrice(Map<String,Integer> map); //고른 상품의 수량*가격
 }

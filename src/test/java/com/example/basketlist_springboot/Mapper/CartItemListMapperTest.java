@@ -70,4 +70,9 @@ class CartItemListMapperTest {
     void deleteByUserNo() {
         System.out.println(cartItemListMapper.deleteByUserNo(9));
     }
+
+    @Test
+    void selectDetailByUserNo() {
+        System.out.println(cartItemListMapper.selectDetailByUserNo(9));
+    }
 }

@@ -27,55 +27,38 @@ public class UsersServiceImp implements UsersService {
     @Override
     @Transactional
     public UserDto registerUsers(UserDto userDto) {
+        if (Boolean.FALSE.equals(userDto.getPrivacyAgreements())) {
+            // 개인정보 제공 동의가 필수
+            return null;
+        }
+        // 사용자 정보 세팅
         Users users = new Users();
-        Integer checkUserName=usersMapper.checkUserName(userDto.getUserName());
-        if(checkUserName==1 || userDto.getUserName()==null){
-            return null;
-        }
         users.setUserName(userDto.getUserName());
-        String BcryptPw= BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
-        users.setPassword(BcryptPw);
-        Integer checkUserNickname=usersMapper.checkUserNickName(userDto.getUserName());
-        if(checkUserNickname==1 || userDto.getUserNickname()==null){
-            return null;
-        }
+        users.setPassword(BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt()));
         users.setUserNickname(userDto.getUserNickname());
         users.setProfileImgUrl(userDto.getProfileImgUrl());
         users.setRole(userDto.getRole());
         users.setSelfIntroduction(userDto.getSelfIntroduction());
-        usersMapper.insert(users);
+        usersMapper.insert(users); // 먼저 Users 저장 (userId 생성됨)
+        // 상세 정보 세팅
         UserDetails userDetails = new UserDetails();
         userDetails.setDetailUserNo(users.getUserId());
         userDetails.setName(userDto.getName());
-        Integer checkEmail= userDetailsMapper.checkUserEmail(userDto.getEmail());
-        if(checkEmail==1 || userDto.getEmail()==null){
-            return null;
-        }
         userDetails.setEmail(userDto.getEmail());
-        Integer checkPhone= userDetailsMapper.checkUserPhone(userDto.getPhone());
-        if(checkPhone==1 || userDto.getPhone()==null){
-            return null;
-        }
         userDetails.setPhone(userDto.getPhone());
-        userDetails.setBirthDate(userDto.getBirthDate());
-        userDetails.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
-        userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
-        Boolean privacyAgreement= userDto.getPrivacyAgreements();
-        if(privacyAgreement!=true){
-            return null;
+        // LocalDate → Timestamp 변환
+        if (userDto.getBirthDate() != null) {
+            userDetails.setBirthDate(Timestamp.valueOf(userDto.getBirthDate().atStartOfDay()));
         }
+        userDetails.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
         userDetails.setPrivacyAgreements(true);
         userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
-        userDto.setUserId(users.getUserId());
         userDetailsMapper.insert(userDetails);
+        // insert 후 DTO에 ID 세팅
+        userDto.setUserId(users.getUserId());
+        // 사용자 객체와 상세 정보 연결
         users.setUserDetails(userDetails);
-        if(userDetails!=null && userDetails.getPrivacyAgreements()==true){
-            return userDto;
-        }
-        if(userDetails==null){
-            usersMapper.deleteByUserId(users.getUserId());
-        }
-        return null;
+        return userDto;
     }
 
     @Override

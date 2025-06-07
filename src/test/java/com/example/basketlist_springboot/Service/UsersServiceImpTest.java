@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 class UsersServiceImpTest {
@@ -36,7 +38,8 @@ class UsersServiceImpTest {
         userDto.setPrivacyAgreements(true);
         userDto.setMarketingAgreements(false);
         userDto.setName("더조아");
-        userDto.setBirthDate(Timestamp.valueOf("1996-01-03 03:00:00"));//userDetails
+        userDto.setCreatedAt(Timestamp.valueOf(LocalDateTime.now()));
+        userDto.setBirthDate(LocalDate.parse("1996-01-03 03:00:00"));//userDetails
         UserDto newUserDto= usersService.registerUsers(userDto);
         System.out.println(newUserDto);
     }

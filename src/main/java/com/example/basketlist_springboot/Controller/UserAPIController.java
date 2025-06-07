@@ -7,12 +7,13 @@ import com.example.basketlist_springboot.Service.UserDetailService;
 import com.example.basketlist_springboot.Service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
 
 @RestController
 @RequestMapping("/api/user")
@@ -72,7 +73,7 @@ public class UserAPIController {
         }
         userDetails.setMarketingAgreements(userDto.getMarketingAgreements());
         userDetails.setEmail(userDto.getEmail());
-        userDetails.setBirthDate(userDto.getBirthDate());
+        userDetails.setBirthDate(Timestamp.valueOf(userDto.getBirthDate().atStartOfDay()));
         userDetails.setPhone(userDto.getPhone());
         userDetails.setPrivacyAgreements(userDto.getPrivacyAgreements());
         userDetails.setDetailUserNo(userDto.getUserId());

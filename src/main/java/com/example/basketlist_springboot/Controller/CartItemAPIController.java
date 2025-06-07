@@ -2,18 +2,16 @@ package com.example.basketlist_springboot.Controller;
 
 import com.example.basketlist_springboot.Dto.CartItemList;
 import com.example.basketlist_springboot.Dto.UserDto;
-import com.example.basketlist_springboot.Dto.Users;
 import com.example.basketlist_springboot.Service.CartItemListService;
-import com.example.basketlist_springboot.Service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class CartItemAPIController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
         }
         UserDto user = (UserDto) session.getAttribute("loginUser");
-        List<CartItemList> ItemList=cartItemListService.getCartItemList(user.getUserId());
+        List<CartItemList> ItemList=cartItemListService.getCartItemListDetail(user.getUserId());
         return ResponseEntity.ok().body(ItemList);
     }
 
@@ -43,7 +41,7 @@ public class CartItemAPIController {
         }
         UserDto user = (UserDto) session.getAttribute("loginUser");
         cartItemListService.createCartItemList(user.getUserId(),cartItemList.getProductNo()
-                ,cartItemList.getQuantity(),Timestamp.valueOf(LocalDateTime.now()));
+                ,cartItemList.getQuantity(), LocalDate.now());
         return ResponseEntity.ok().body("장바구니에 추가되었습니다.");
     }
 
@@ -57,6 +55,7 @@ public class CartItemAPIController {
         cartItemListService.deleteCartItem(cartItemList.getCartItemId());
         return ResponseEntity.ok().body("장바구니에서 삭제되었습니다.");
     }
+
     @DeleteMapping("/myList/All")
     ResponseEntity<?> deleteAllCartItems(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

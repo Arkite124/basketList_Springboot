@@ -22,10 +22,11 @@ public class RegisterAPIController {
     private final UsersService usersService;
 
     @PostMapping("/user")
-    public ResponseEntity<?> register(@RequestBody UserDto dto) {
-        UserDto newUserDto=usersService.registerUsers(dto);
+    public ResponseEntity<?> register(@RequestBody UserDto user) {
+        System.out.println(user);
+        UserDto newUserDto=usersService.registerUsers(user);
         if(newUserDto==null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("회원가입에 실패했습니다.");
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         return ResponseEntity.ok().build();
     }

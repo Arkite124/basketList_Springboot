@@ -26,5 +26,20 @@ public class Product implements Serializable {
     private Integer totalCount;
     private Users users;
 
+
+    public Product(Product product) {
+        this.productId = product.getProductId();
+        this.productCategory = product.getProductCategory();
+        this.productName = product.getProductName();
+        this.productImgUrl = product.getProductImgUrl();
+        this.productDescription = product.getProductDescription();
+        this.productUserNo = product.getProductUserNo();
+        this.productPrice = product.getProductPrice();
+        this.productQuantity = product.getProductQuantity();
+        this.productAddedAt = product.getProductAddedAt();
+        this.totalCount = product.getTotalCount();
+        this.users = product.getUsers();
+    }
+
     private static final long serialVersionUID = 1L;
 }
