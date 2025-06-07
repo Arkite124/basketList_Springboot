@@ -57,4 +57,4 @@ userDto 에서 Get 하면 유저 모두가 동의한 9개의 users의 데이터�
 21. signup3 : Dto Agreements 구조를 short 에서 Boolean 으로 변경, 약관동의 확인 코드 변경 백앤드 쪽은 거의 끝난듯 함 마지막 user가 생성되는지
 확인하는 절차만 남았음
 22. cartList : 장바구니 간소화 리스트 만듬, 회원가입 절차 끝남, 백앤드에선 구조 몇가지 손봤음(cartListMapper 에서 Product와 left join 해서
-상품 사진,이름,가격 불러오기) 
+상품 사진,이름,가격 불러오기) 근데 위에가 짤리는 문제가 있음 
