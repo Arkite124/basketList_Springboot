@@ -15,4 +15,5 @@ public interface ProductService {
     public void deleteProduct(Integer productNo,Integer userId);
     public void updateProduct(Product product, Integer userId);
     public Integer getProductCountByCategory(String category);
+    public Integer getProductResultCountByKeyword(String keyword);
 }

@@ -54,6 +54,9 @@
        </if>
    </where>
   </select>
+  <select id="ResultCountTotalProduct" resultType="integer" parameterType="string">
+    select count(*) as totalCount from product where (PRODUCT_NAME like '%'||#{keyword,jdbcType=VARCHAR}||'%')
+  </select>
   <select id="selectProductListByProductUserNickname" parameterType="string" resultMap="ProductWithUserNicknameResultMap">
     select p.*,u.USER_NICKNAME from PRODUCT p left join Users u on u.USER_ID=p.PRODUCT_USER_NO where u.USER_NICKNAME=#{userNickname,jdbcType=VARCHAR} order by PRODUCT_ADDED_AT DESC
   </select>

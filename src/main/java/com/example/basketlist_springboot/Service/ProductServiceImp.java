@@ -107,4 +107,9 @@ public class ProductServiceImp implements ProductService {
     public Integer getProductCountByCategory(String category) {
         return productMapper.CountTotalProduct(category);
     }
+
+    @Override
+    public Integer getProductResultCountByKeyword(String keyword) {
+        return productMapper.ResultCountTotalProduct(keyword);
+    }
 }

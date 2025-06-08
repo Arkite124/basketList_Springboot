@@ -2,24 +2,18 @@ package com.example.basketlist_springboot.Controller;
 
 import com.example.basketlist_springboot.Dto.Product;
 import com.example.basketlist_springboot.Dto.UserDto;
-import com.example.basketlist_springboot.Mapper.ProductMapper;
 import com.example.basketlist_springboot.Service.ProductService;
-import com.example.basketlist_springboot.Service.UsersService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @RestController
@@ -57,6 +51,11 @@ public class ProductListAPIController {
         return productService.getProductCountByCategory(category);
     }
     //카테고리별 총 상품갯수 -> totalPage를 구현하기 위해서
+    @GetMapping("/list/result/total")
+    public Integer getResultTotalProducts(@RequestParam String keyword) {
+        return productService.getProductResultCountByKeyword(keyword);
+    }
+    //총 상품갯수 -> 검색결과의 totalPage를 구현하기 위해서
 
     @PostMapping("/list")
     public ResponseEntity<?> addProduct(@RequestBody Product product, HttpServletRequest request) {
