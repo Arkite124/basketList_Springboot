@@ -1,11 +1,9 @@
 package com.example.basketlist_springboot.Dto;
 
+import lombok.*;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Date;
-
-import lombok.*;
 
 /**
  * productList
@@ -15,26 +13,19 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItemList implements Serializable {
+public class CartItemListDto implements Serializable {
     private Integer cartItemId;
     private Integer productNo;
     private Integer listUserNo;
     private Integer quantity;
     private Timestamp addedAt;
-    private Product products;
 
-    private Integer selectedPrice;
-    private Integer totalPrice;
-
-    public CartItemList(CartItemList cartItemList) {
+    public CartItemListDto(CartItemListDto cartItemList,Product product) {
         this.cartItemId = cartItemList.getCartItemId();
         this.listUserNo = cartItemList.getListUserNo();
         this.quantity = cartItemList.getQuantity();
         this.addedAt = cartItemList.getAddedAt();
-        this.products = cartItemList.getProducts();
-        this.productNo = products.getProductId();
-        this.selectedPrice = cartItemList.getSelectedPrice();
-        this.totalPrice = cartItemList.getTotalPrice();
+        this.productNo = product.getProductId();
     }
 
     private static final long serialVersionUID = 1L;

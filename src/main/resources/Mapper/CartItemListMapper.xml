@@ -77,9 +77,9 @@
     </set>
     where CART_ITEM_ID=#{cartItemId,jdbcType=INTEGER}
   </update>
-  <insert id="insert" parameterType="com.example.basketlist_springboot.Dto.CartItemList"
+  <insert id="insert" parameterType="com.example.basketlist_springboot.Dto.CartItemListDto"
           keyColumn="cart_item_id" keyProperty="cartItemId" useGeneratedKeys="true" >
-    INSERT INTO cartItemList (product_no, list_user_no, quantity)
+    INSERT INTO cartItemList (product_no,list_user_no, quantity)
     VALUES (#{productNo, jdbcType=INTEGER},
             #{listUserNo, jdbcType=INTEGER},
             #{quantity, jdbcType=INTEGER})
@@ -94,5 +94,8 @@
     order by c.LIST_USER_NO rows between unbounded preceding and current row) as sumPrice from ADMINBASKET.CARTITEMLIST c
        left join ADMINBASKET.PRODUCT p on p.PRODUCT_ID = c.PRODUCT_NO where c.PRODUCT_NO=p.PRODUCT_ID
          AND c.LIST_USER_NO=#{userId,jdbcType=INTEGER})
+  </select>
+  <select id="checkItemDuplicate" parameterType="map" resultType="integer">
+    select count(*) from CARTITEMLIST where LIST_USER_NO=#{listUserNo,jdbcType=INTEGER} and PRODUCT_NO=#{productNo,jdbcType=INTEGER}
   </select>
 </mapper>

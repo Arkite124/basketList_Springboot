@@ -1,6 +1,7 @@
 package com.example.basketlist_springboot.Service;
 
 import com.example.basketlist_springboot.Dto.CartItemList;
+import com.example.basketlist_springboot.Dto.CartItemListDto;
 import com.example.basketlist_springboot.Dto.Users;
 import com.example.basketlist_springboot.Mapper.CartItemListMapper;
 import com.example.basketlist_springboot.Mapper.UsersMapper;
@@ -8,7 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,18 +21,18 @@ public class CartItemListServiceImp implements CartItemListService {
     private final UsersMapper usersMapper;
 
     @Override
-    public CartItemList createCartItemList(int userId, int productNo, int quantity, LocalDate addedAt) {
+    public CartItemListDto createCartItemList(int userId, int productNo, int quantity) {
         Users user=usersMapper.selectByUserId(userId);
         if(user.getRole().equals("seller")){
             return null;
         }
-        CartItemList cartItemList = new CartItemList();
-        cartItemList.setListUserNo(userId);
-        cartItemList.setProductNo(productNo);
-        cartItemList.setQuantity(quantity);
-        cartItemList.setAddedAt(Timestamp.valueOf(addedAt.atStartOfDay()));
-        cartItemListMapper.insert(cartItemList);
-        return cartItemList;
+        CartItemListDto cartItemListDto = new CartItemListDto();
+        cartItemListDto.setListUserNo(userId);
+        cartItemListDto.setProductNo(productNo);
+        cartItemListDto.setQuantity(quantity);
+        cartItemListDto.setAddedAt(Timestamp.valueOf(LocalDateTime.now()));
+        cartItemListMapper.insert(cartItemListDto);
+        return cartItemListDto;
     }
 
     @Override
@@ -59,6 +60,14 @@ public class CartItemListServiceImp implements CartItemListService {
     }
 
     @Override
+    public Integer checkCartItemDuplicate(int productNo, int userId) {
+        Map<String,Integer> map=new HashMap<>();
+        map.put("listUserNo",userId);
+        map.put("productNo",productNo);
+        return cartItemListMapper.checkItemDuplicate(map);
+    }//장바구니에 중복상품이 담기면 안됨
+
+    @Override
     public int selectedCartItemPriceByUserIdAndCartItemId(int userId, int cartItemId) {
         //쉽게 말하면 고른 물품의 수량*가격
         Map<String,Integer> map=new HashMap<>();
@@ -70,5 +79,10 @@ public class CartItemListServiceImp implements CartItemListService {
     @Override
     public int totalCartPrice(int userId) {
         return cartItemListMapper.totalPrice(userId);
+    }
+
+    @Override
+    public Integer updateCartItemPrice(int cartItemId, int price) {
+        return 0;
     }
 }

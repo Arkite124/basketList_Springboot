@@ -1,6 +1,7 @@
 package com.example.basketlist_springboot.Service;
 
 import com.example.basketlist_springboot.Dto.CartItemList;
+import com.example.basketlist_springboot.Dto.CartItemListDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,7 +29,7 @@ class CartItemListServiceImpTest {
     @Test
     @Transactional
     void createCartItemList() {
-        CartItemList cartItemList=cartItemListService.createCartItemList(9,64,3, LocalDate.now());
+        CartItemListDto cartItemList=cartItemListService.createCartItemList(9,64,3);
         System.out.println(cartItemList);
     }
 
@@ -46,4 +47,7 @@ class CartItemListServiceImpTest {
     void totalCartPrice() {
     }
 
+    @Test
+    void checkCartItemDuplicate() {
+    }
 }

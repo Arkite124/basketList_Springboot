@@ -1,6 +1,7 @@
 package com.example.basketlist_springboot.Controller;
 
 import com.example.basketlist_springboot.Dto.CartItemList;
+import com.example.basketlist_springboot.Dto.CartItemListDto;
 import com.example.basketlist_springboot.Dto.UserDto;
 import com.example.basketlist_springboot.Service.CartItemListService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,14 +35,18 @@ public class CartItemAPIController {
     }
 
     @PostMapping("/myList")
-    ResponseEntity<?> addCartItem(@RequestBody CartItemList cartItemList, HttpServletRequest request) {
+    ResponseEntity<?> addCartItem(@RequestBody CartItemListDto cartItemListDto, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if(session==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("회원정보를 불러올 수 없습니다.");
         }
         UserDto user = (UserDto) session.getAttribute("loginUser");
-        cartItemListService.createCartItemList(user.getUserId(),cartItemList.getProductNo()
-                ,cartItemList.getQuantity(), LocalDate.now());
+        Integer checkDuplicate=cartItemListService.checkCartItemDuplicate(cartItemListDto.getProductNo(),user.getUserId());
+        if(checkDuplicate>=1){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 장바구니에 담긴 상품입니다.");
+        }
+        cartItemListService.createCartItemList(user.getUserId(),cartItemListDto.getProductNo()
+                ,cartItemListDto.getQuantity());
         return ResponseEntity.ok().body("장바구니에 추가되었습니다.");
     }
 
