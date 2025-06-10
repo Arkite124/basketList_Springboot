@@ -62,3 +62,4 @@ userDto 에서 Get 하면 유저 모두가 동의한 9개의 users의 데이터�
 (justify-center=>justify-start), 해결 완 구문구조는 동일(Mapper->Service->Controller)
 24. duplicate : 중복체크 코드 추가(같은 상품 두번담지 못하게), 카트에 아이템은 성공적으로 들어가지는데 
 구조가 비슷한 삭제코드에서 아직 삭제가 안되는건 아마 프론트 코드 문제인듯
+25. cartListPage : 페이지에서 날짜가 Instant 형식으로 나오는걸 LocaleDateTime 형식으로 바꿈

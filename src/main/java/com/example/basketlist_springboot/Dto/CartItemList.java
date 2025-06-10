@@ -3,8 +3,10 @@ package com.example.basketlist_springboot.Dto;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 /**
@@ -20,7 +22,8 @@ public class CartItemList implements Serializable {
     private Integer productNo;
     private Integer listUserNo;
     private Integer quantity;
-    private Timestamp addedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년MM월dd일 a hh시mm분")
+    private LocalDateTime addedAt;
     private Product products;
 
     private Integer selectedPrice;

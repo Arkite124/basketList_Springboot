@@ -36,7 +36,7 @@ public class WishListServiceImp implements WishListService {
         wishListKey.setWishProductNo(wishProductNo);
         WishList wishList = wishListMapper.selectWishListByKey(wishListKey);
         if(wishList==null){
-            return null;
+            throw new Error("삭제되었거나 없는 위시리스트입니다.");
         }
        return wishListMapper.deleteByWishListKey(wishListKey);
     }
