@@ -22,10 +22,9 @@ public class CartItemList implements Serializable {
     private Integer productNo;
     private Integer listUserNo;
     private Integer quantity;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년MM월dd일 a hh시mm분")
-    private LocalDateTime addedAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년MM월dd일")
+    private LocalDate addedAt;
     private Product products;
-
     private Integer selectedPrice;
     private Integer totalPrice;
 

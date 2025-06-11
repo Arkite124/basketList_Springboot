@@ -6,6 +6,8 @@ import com.example.basketlist_springboot.Mapper.WishListMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -19,13 +21,13 @@ public class WishListServiceImp implements WishListService {
     }
 
     @Override
-    public Integer AddWishList(Integer wishUserNo, Integer wishProductNo) {
-        WishList wishList = new WishList();
-        wishList.setWishUserNo(wishUserNo);
-        if(wishUserNo==null || wishProductNo==null){
-            return null;
+    public Integer addWishList(WishList wishList) {
+        if(wishList.getWishUserNo()==null || wishList.getWishProductNo()==null){
+           throw new Error("위시리스트에 등록할 수 없습니다.");
         }
-        wishList.setWishProductNo(wishProductNo);
+        wishList.setWishUserNo(wishList.getWishUserNo());
+        wishList.setWishProductNo(wishList.getWishProductNo());
+        wishList.setAddedAt(Timestamp.valueOf(LocalDateTime.now()));
         return wishListMapper.insert(wishList);
     }
 

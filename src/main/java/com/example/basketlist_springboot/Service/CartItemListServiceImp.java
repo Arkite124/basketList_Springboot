@@ -80,9 +80,4 @@ public class CartItemListServiceImp implements CartItemListService {
     public int totalCartPrice(int userId) {
         return cartItemListMapper.totalPrice(userId);
     }
-
-    @Override
-    public Integer updateCartItemPrice(int cartItemId, int price) {
-        return 0;
-    }
 }

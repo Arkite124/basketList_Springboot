@@ -23,6 +23,7 @@ import java.util.List;
 public class CartItemAPIController {
     private final CartItemListService cartItemListService;
 
+    //List 가져오기
     @GetMapping("/myList")
     ResponseEntity<?> getCartItemList(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -34,6 +35,19 @@ public class CartItemAPIController {
         return ResponseEntity.ok().body(ItemList);
     }
 
+    // totalPrice 가져오기
+    @GetMapping("/myList/totalPrice")
+    ResponseEntity<?> getCartItemListTotalPrice(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");
+        }
+        UserDto user = (UserDto) session.getAttribute("loginUser");
+        Integer totalPrice=cartItemListService.totalCartPrice(user.getUserId());
+        return ResponseEntity.ok().body(totalPrice);
+    }
+
+//    장바구니에 등록하기
     @PostMapping("/myList")
     ResponseEntity<?> addCartItem(@RequestBody CartItemListDto cartItemListDto, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -50,6 +64,7 @@ public class CartItemAPIController {
         return ResponseEntity.ok().body("장바구니에 추가되었습니다.");
     }
 
+//    장바구니에서 삭제하기
     @DeleteMapping("/myList")
     ResponseEntity<?> deleteCartItem(@RequestBody CartItemList cartItemList, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -61,6 +76,18 @@ public class CartItemAPIController {
         return ResponseEntity.ok().body("장바구니에서 삭제되었습니다.");
     }
 
+    //수정할것은 수량 뿐이므로, 수량만 업데이트
+    @PutMapping("/myList")
+    ResponseEntity<?> updateCartItem(@RequestBody CartItemList cartItemList, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if(session==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("회원정보를 불러올 수 없습니다.");
+        }
+        cartItemListService.updateCartItemQuantity(cartItemList.getCartItemId(),cartItemList.getQuantity());
+        return ResponseEntity.ok().body("수량이 수정되었습니다.");
+    }
+
+//    전체삭제
     @DeleteMapping("/myList/All")
     ResponseEntity<?> deleteAllCartItems(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

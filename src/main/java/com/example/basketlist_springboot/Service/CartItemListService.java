@@ -16,5 +16,4 @@ public interface CartItemListService {
     Integer checkCartItemDuplicate(int productNo,int userId);
     int selectedCartItemPriceByUserIdAndCartItemId(int userId, int cartItemId);
     int totalCartPrice (int userId);
-    Integer updateCartItemPrice(int cartItemId, int price);
 }
