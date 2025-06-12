@@ -1,7 +1,10 @@
 package com.example.basketlist_springboot.Mapper;
 
+import com.example.basketlist_springboot.Dto.UserAndProductDto;
 import com.example.basketlist_springboot.Dto.Users;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface UsersMapper {
@@ -13,4 +16,5 @@ public interface UsersMapper {
     Users selectUserByUserNickName(String userNickName); //닉네임으로 유저 조회할때 -> 파라미터로 써도 문제 없음
     Integer checkUserName(String userName); //아이디 중복체크용
     Integer checkUserNickName(String userNickName); //닉네임 중복체크
+    List<UserAndProductDto> selectUserAndProductByUserId(Integer userId); // 유저 아이디로 Product 조회
 }

@@ -18,9 +18,15 @@ import lombok.*;
 @NoArgsConstructor
 public class WishList extends WishListKey implements Serializable {
     private Integer wishProductNo;
+    private Integer wishUserNo;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년MM월dd일")
     private Timestamp addedAt;
     private Product product;
+    public WishList(WishList wishList, Product product) {
+        this.wishUserNo = wishList.getWishUserNo();
+        this.wishProductNo = product.getProductId();
+        this.product = product;
+    }
 
     private static final long serialVersionUID = 1L;
 }

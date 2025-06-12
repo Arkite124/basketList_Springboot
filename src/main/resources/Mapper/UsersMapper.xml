@@ -32,6 +32,22 @@
         <result column="name" jdbcType="VARCHAR" property="name"/>
       </association>
     </resultMap>
+    <resultMap id="userWithProductsResultMap" type="com.example.basketlist_springboot.Dto.UserAndProductDto">
+      <id column="user_id" jdbcType="INTEGER" property="userId" />
+      <result column="profile_img_url" jdbcType="VARCHAR" property="profileImgUrl" />
+      <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+      <result column="role" jdbcType="VARCHAR" property="role" />
+      <result column="self_introduction" jdbcType="VARCHAR" property="selfIntroduction"/>
+      <result column="product_id" jdbcType="INTEGER" property="productId"/>
+      <result column="product_category" jdbcType="VARCHAR" property="productCategory" />
+      <result column="product_name" jdbcType="VARCHAR" property="productName" />
+      <result column="product_img_url" jdbcType="VARCHAR" property="productImgUrl" />
+      <result column="product_description" jdbcType="VARCHAR" property="productDescription" />
+      <result column="product_user_no" jdbcType="VARCHAR" property="productUserNo" />
+      <result column="product_price" jdbcType="INTEGER" property="productPrice"/>
+      <result column="product_quantity" jdbcType="INTEGER" property="productQuantity"/>
+      <result column="product_added_at" jdbcType="TIMESTAMP" property="productAddedAt"/>
+    </resultMap>
   <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     USER_ID,PROFILE_IMG_URL,USER_NICKNAME,SELF_INTRODUCTION,ROLE
@@ -81,5 +97,8 @@
   </select>
   <select id="checkUserNickName" parameterType="string" resultType="integer">
     select count(*) from users where user_nickname=#{userNickname,jdbcType=VARCHAR}
+  </select>
+  <select id="selectUserAndProductByUserId" resultMap="userWithProductsResultMap" parameterType="integer">
+    select u.*,p.* from PRODUCT p full join users u on u.USER_ID=p.PRODUCT_USER_NO where p.PRODUCT_USER_NO=#{userId,jdbcType=INTEGER}
   </select>
 </mapper>

@@ -26,7 +26,7 @@ public class UserDto implements Serializable {
     private Boolean privacyAgreements;
     private Boolean marketingAgreements;
     private Timestamp createdAt;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy년MM월dd일")
     private LocalDate birthDate;
     private String name;
 //종합 정보 조회

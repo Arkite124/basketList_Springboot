@@ -28,6 +28,7 @@ public class UserDetails implements Serializable {
     private Timestamp createdAt;
     private Timestamp birthDate;
     private String name;
+
     public UserDetails(UserDetails userDetails) {
         this.detailUserNo = userDetails.getDetailUserNo();
         this.email = userDetails.getEmail();
