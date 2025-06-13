@@ -33,6 +33,7 @@ public class LoginController {
         }return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("아이디나 비밀번호가 틀렸습니다!");
     }
 
+//    로그인 상태 유지
     @GetMapping("/login/me")
     public ResponseEntity<?> me(HttpServletRequest request) {
         HttpSession session=request.getSession();
@@ -43,6 +44,7 @@ public class LoginController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("다시 로그인 하세요");
     }
 
+// 세션기반 로그인이니까 세션쿠키를 지워버리는 것
     @PostMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request,HttpServletResponse response) {
         HttpSession session=request.getSession();
@@ -57,7 +59,7 @@ public class LoginController {
     }
 
     @DeleteMapping("/delete")
-    private ResponseEntity<?> delete(@RequestBody UserDto dto, HttpServletRequest request) {
+    private ResponseEntity<?> delete(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if(session==null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인이 필요합니다.");

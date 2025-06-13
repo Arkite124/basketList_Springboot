@@ -55,4 +55,9 @@ class UsersServiceImpTest {
         UserDto loginUser=usersService.LoginUsers("goodseller1","pass1234");
         System.out.println(loginUser);
     }
+
+    @Test
+    void getUserProducts() {
+        System.out.println(usersService.getUserProducts(3));
+    }
 }

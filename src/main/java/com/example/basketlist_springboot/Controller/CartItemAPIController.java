@@ -87,7 +87,7 @@ public class CartItemAPIController {
         return ResponseEntity.ok().body("수량이 수정되었습니다.");
     }
 
-//    전체삭제
+    //전체삭제
     @DeleteMapping("/myList/All")
     ResponseEntity<?> deleteAllCartItems(HttpServletRequest request) {
         HttpSession session = request.getSession(false);

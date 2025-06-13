@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -37,6 +38,16 @@ public class ProductListAPIController {
     }
     //선택한 카테고리별 상품 조회(category=null 이면 전체 조회)
 
+    @GetMapping("/list/detail")
+    public ResponseEntity<?> getProductDetail(@RequestParam String productName){
+        Product detailProduct=productService.getProductByProductName(productName);
+        if(detailProduct==null || productName.isEmpty()){
+            return ResponseEntity.status(400).body("존재하지 않는 상품입니다.");
+        }
+        return ResponseEntity.ok().body(detailProduct);
+    }
+    // 상품 상세 정보
+
     @GetMapping("/list/result/{keyword}")
     public Page<Product> searchProduct(@PathVariable String keyword, @RequestParam int page, @RequestParam int size) {
         return productService.searchProductsByKeyWord(keyword, page, size);
@@ -51,6 +62,7 @@ public class ProductListAPIController {
         return productService.getProductCountByCategory(category);
     }
     //카테고리별 총 상품갯수 -> totalPage를 구현하기 위해서
+
     @GetMapping("/list/result/total")
     public Integer getResultTotalProducts(@RequestParam String keyword) {
         return productService.getProductResultCountByKeyword(keyword);
@@ -96,6 +108,7 @@ public class ProductListAPIController {
         return ResponseEntity.ok().body(updateProduct);
     }
     // 상품 수정
+
     @DeleteMapping("/list")
     public ResponseEntity<?> deleteProduct(@RequestBody Product product, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -109,7 +122,7 @@ public class ProductListAPIController {
         productService.deleteProduct(product.getProductId(),user.getUserId());
         return ResponseEntity.ok().body("삭제가 완료되었습니다");
     }
-    //상품 삭제
+    // 상품 삭제
 
 
 }

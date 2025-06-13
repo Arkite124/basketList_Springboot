@@ -1,5 +1,6 @@
 package com.example.basketlist_springboot.Service;
 
+import com.example.basketlist_springboot.Dto.UserAndProductDto;
 import com.example.basketlist_springboot.Dto.UserDetails;
 import com.example.basketlist_springboot.Dto.UserDto;
 import com.example.basketlist_springboot.Dto.Users;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -97,5 +99,10 @@ public class UsersServiceImp implements UsersService {
     public Users getUserByUserNickname(String nickname) {
         Users users=usersMapper.selectUserByUserNickName(nickname);
         return users;
+    }
+
+    @Override
+    public List<UserAndProductDto> getUserProducts(Integer userId) {
+        return usersMapper.selectUserAndProductByUserId(userId);
     }
 }

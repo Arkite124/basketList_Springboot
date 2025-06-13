@@ -50,4 +50,11 @@ public class WishListServiceImp implements WishListService {
         }
         return wishListMapper.deleteByWishUserNo(wishUserNo);
     }
+
+    // 각각의 상품별 위시리스트 반영을 보기위함
+    @Override
+    public Boolean getWishListStatus(WishListKey wishListKey) {
+        WishList selectedItem=wishListMapper.selectWishListByKey(wishListKey);
+        return selectedItem != null;
+    }
 }
